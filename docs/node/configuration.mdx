@@ -2,6 +2,26 @@
 
 This guide covers all available configuration options for the local node, with special focus on fork mode setup and troubleshooting.
 
+> **New to fork mode?** Check out the [Node Overview](./overview.mdx) for an introduction to fork mode concepts and use cases.
+
+## Quick Start
+
+To get started with local node configuration, import the configuration builder and create your setup:
+
+```typescript
+import { configure, createOnchainTest } from '@coinbase/onchaintestkit';
+
+// Basic local node setup
+const test = createOnchainTest(
+  configure()
+    .withLocalNode({
+      // Configure your node options here
+    })
+    .withMetaMask() // or .withCoinbase() or .withPhantom()
+    .build()
+);
+```
+
 ## Configuration Options
 
 The `withLocalNode()` method accepts a `NodeConfig` object with the following options:
