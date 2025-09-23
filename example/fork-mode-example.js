@@ -30,7 +30,7 @@ console.log("Fork configuration created successfully!")
 console.log("Config:", JSON.stringify(forkConfig, null, 2))
 
 // Example: Different Networks
-const polygonForkConfig = configure()
+const _polygonForkConfig = configure()
   .withLocalNode({
     fork: "https://polygon-mainnet.g.alchemy.com/v2/demo", // Use your own API key
     chainId: 137,
