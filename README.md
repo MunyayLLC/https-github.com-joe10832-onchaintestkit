@@ -95,7 +95,52 @@ test('connect wallet and swap', async ({ page, metamask }) => {
   - Handle signatures
   - Switch networks
 - **Network Management**: Easy network configuration using viem chains
+- **Fork Mode**: Test against real blockchain data by forking mainnet or other networks
 - **Type Safety**: Full TypeScript support
+
+## Fork Mode
+
+Fork mode allows you to create a local blockchain that mirrors the exact state of a live network, giving you access to real contracts, balances, and data for comprehensive testing.
+
+### What is Fork Mode?
+
+Fork mode creates a local copy of a blockchain network at a specific point in time. This means you can:
+- Test with real DeFi protocols (Uniswap, Aave, Compound, etc.)
+- Access actual token balances and contract states
+- Reproduce production bugs in a controlled environment
+- Test complex scenarios without deployment costs
+
+### Quick Fork Mode Example
+
+```typescript
+import { configure, createOnchainTest } from '@coinbase/onchaintestkit';
+
+// Fork Ethereum mainnet for testing
+const test = createOnchainTest(
+  configure()
+    .withLocalNode({
+      fork: 'https://eth-mainnet.g.alchemy.com/v2/your-api-key',
+      forkBlockNumber: 18500000, // Optional: fork from specific block
+      chainId: 1,
+    })
+    .withMetaMask()
+    .withNetwork({
+      name: 'Forked Ethereum',
+      rpcUrl: 'http://localhost:8545',
+      chainId: 1,
+      symbol: 'ETH',
+    })
+    .build()
+);
+
+test('swap on forked Uniswap', async ({ page, metamask }) => {
+  // Test with real Uniswap contracts and liquidity
+  await page.goto('https://app.uniswap.org');
+  // ... your test logic
+});
+```
+
+For detailed fork mode documentation, see [docs/node/overview.mdx](docs/node/overview.mdx) and [docs/node/configuration.mdx](docs/node/configuration.mdx).
 
 ## Configuration Builder
 
@@ -122,6 +167,7 @@ const config = configure()
 - `withMetaMask()`: Initialize MetaMask configuration
 - `withCoinbase()`: Initialize Coinbase Wallet configuration
 - `withPhantom()`: Initialize Phantom Wallet configuration
+- `withLocalNode()`: Configure local Anvil node with optional fork mode
 - `withSeedPhrase()`: Configure wallet with seed phrase
 - `withNetwork()`: Configure network settings
 - `withCustomSetup()`: Add custom setup steps
