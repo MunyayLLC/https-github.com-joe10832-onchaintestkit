@@ -1,0 +1,144 @@
+# Node Overview
+
+The Onchain Test Kit provides powerful local node capabilities for blockchain testing, including support for **fork mode** - one of the most useful features for comprehensive testing scenarios.
+
+## What is Fork Mode?
+
+Fork mode allows you to create a local blockchain environment that mirrors the exact state of a live blockchain network at a specific block. Think of it as taking a "snapshot" of mainnet (or any network) and running it locally for testing purposes.
+
+### Why Use Fork Mode?
+
+Fork mode is invaluable for testing because it allows you to:
+
+- **Test with real data**: Access actual token balances, contract states, and historical transactions
+- **Test complex interactions**: Interact with existing DeFi protocols, NFT collections, and smart contracts
+- **Debug production issues**: Reproduce bugs that occur on mainnet in a controlled environment
+- **Test upgrades safely**: Simulate contract upgrades or parameter changes before deployment
+- **Access liquidity**: Test swaps and trades with real liquidity pools and market conditions
+
+## Basic Fork Mode Usage
+
+Here's how to set up fork mode in your tests:
+
+```typescript
+import { configure, createOnchainTest } from '@coinbase/onchaintestkit';
+
+// Fork from Ethereum mainnet
+const test = createOnchainTest(
+  configure()
+    .withLocalNode({
+      fork: 'https://eth-mainnet.g.alchemy.com/v2/your-api-key',
+      chainId: 1,
+    })
+    .withMetaMask()
+    .withNetwork({
+      name: 'Forked Mainnet',
+      rpcUrl: 'http://localhost:8545',
+      chainId: 1,
+      symbol: 'ETH',
+    })
+    .build()
+);
+
+test('swap tokens on forked mainnet', async ({ page, metamask, node }) => {
+  // Your test now has access to all mainnet contracts and balances
+  // Test interactions with Uniswap, Aave, etc.
+});
+```
+
+## Fork Mode with Specific Block
+
+You can fork from a specific block number to ensure deterministic testing:
+
+```typescript
+const test = createOnchainTest(
+  configure()
+    .withLocalNode({
+      fork: 'https://eth-mainnet.g.alchemy.com/v2/your-api-key',
+      forkBlockNumber: 18500000, // Fork from this specific block
+      chainId: 1,
+    })
+    .withMetaMask()
+    .build()
+);
+```
+
+## Real-World Examples
+
+### Testing DeFi Interactions
+
+```typescript
+// Test lending protocol interactions with real liquidity
+const test = createOnchainTest(
+  configure()
+    .withLocalNode({
+      fork: 'https://eth-mainnet.g.alchemy.com/v2/your-api-key',
+      forkBlockNumber: 18500000,
+      chainId: 1,
+      // Pre-fund test accounts with ETH
+      balance: '100000000000000000000', // 100 ETH
+    })
+    .withMetaMask()
+    .withNetwork({
+      name: 'Forked Mainnet',
+      rpcUrl: 'http://localhost:8545',
+      chainId: 1,
+      symbol: 'ETH',
+    })
+    .build()
+);
+
+test('deposit ETH to Aave', async ({ page, metamask }) => {
+  // Navigate to Aave interface
+  await page.goto('https://app.aave.com');
+  
+  // Connect wallet
+  await page.getByRole('button', { name: 'Connect Wallet' }).click();
+  await page.getByText('MetaMask').click();
+  await metamask.handleAction(BaseActionType.CONNECT_TO_DAPP);
+  
+  // Perform deposit with real Aave contracts
+  await page.getByRole('button', { name: 'Supply' }).click();
+  // ... rest of test logic
+});
+```
+
+### Testing NFT Marketplace
+
+```typescript
+// Fork to test NFT interactions with real collections
+const test = createOnchainTest(
+  configure()
+    .withLocalNode({
+      fork: 'https://eth-mainnet.g.alchemy.com/v2/your-api-key',
+      chainId: 1,
+    })
+    .withMetaMask()
+    .build()
+);
+
+test('bid on NFT auction', async ({ page, metamask }) => {
+  // Test with real NFT collections and marketplace contracts
+  await page.goto('https://opensea.io/collection/your-collection');
+  // ... test NFT bidding logic
+});
+```
+
+## Key Benefits
+
+1. **Realistic Testing Environment**: Your tests run against the exact same contracts and data as production
+2. **No Deployment Required**: Use existing mainnet contracts without deploying your own
+3. **Fast Execution**: Local execution is much faster than waiting for mainnet transactions
+4. **Cost-Free**: No gas costs for testing complex scenarios
+5. **Reproducible**: Fork from specific blocks for consistent test results
+
+## When to Use Fork Mode
+
+Fork mode is ideal for:
+- Testing integrations with existing protocols (Uniswap, Aave, Compound, etc.)
+- Validating complex multi-step transactions
+- Testing edge cases with real market conditions
+- Debugging production issues
+- End-to-end testing of complete user workflows
+
+For simpler unit tests or when you need a clean state, consider using a fresh local node without forking.

@@ -1,0 +1,387 @@
+# Node Configuration
+
+This guide covers all available configuration options for the local node, with special focus on fork mode setup and troubleshooting.
+
+## Configuration Options
+
+The `withLocalNode()` method accepts a `NodeConfig` object with the following options:
+
+```typescript
+type NodeConfig = {
+  chainId?: number          // Chain ID for the local network
+  port?: number            // Port for the local node (default: 8545)
+  mnemonic?: string        // Custom mnemonic for account generation
+  accounts?: number        // Number of accounts to generate (default: 10)
+  balance?: string         // Initial balance for generated accounts (in wei)
+  gasPrice?: string        // Gas price for transactions (in wei)
+  gasLimit?: string        // Gas limit for transactions
+  blockTime?: number       // Block time in seconds (0 for instant mining)
+  fork?: string           // RPC URL to fork from
+  forkBlockNumber?: number // Specific block number to fork from
+}
+```
+
+## Fork Mode Configuration
+
+### Basic Fork Setup
+
+```typescript
+const config = configure()
+  .withLocalNode({
+    fork: 'https://eth-mainnet.g.alchemy.com/v2/your-api-key',
+    chainId: 1,
+  })
+  .build();
+```
+
+### Fork with Specific Block
+
+Forking from a specific block ensures reproducible tests:
+
+```typescript
+const config = configure()
+  .withLocalNode({
+    fork: 'https://eth-mainnet.g.alchemy.com/v2/your-api-key',
+    forkBlockNumber: 18500000,
+    chainId: 1,
+  })
+  .build();
+```
+
+### Fork with Custom Settings
+
+```typescript
+const config = configure()
+  .withLocalNode({
+    fork: 'https://eth-mainnet.g.alchemy.com/v2/your-api-key',
+    forkBlockNumber: 18500000,
+    chainId: 1,
+    port: 8546,                              // Custom port
+    accounts: 20,                            // More test accounts
+    balance: '1000000000000000000000',       // 1000 ETH per account
+    gasPrice: '20000000000',                 // 20 gwei
+    gasLimit: '30000000',                    // 30M gas limit
+    blockTime: 1,                            // 1 second block time
+  })
+  .build();
+```
+
+## Network-Specific Examples
+
+### Ethereum Mainnet Fork
+
+```typescript
+const ethereumFork = configure()
+  .withLocalNode({
+    fork: 'https://eth-mainnet.g.alchemy.com/v2/your-api-key',
+    chainId: 1,
+    forkBlockNumber: 18500000,
+  })
+  .withMetaMask()
+  .withNetwork({
+    name: 'Forked Ethereum',
+    rpcUrl: 'http://localhost:8545',
+    chainId: 1,
+    symbol: 'ETH',
+  })
+  .build();
+```
+
+### Polygon Mainnet Fork
+
+```typescript
+const polygonFork = configure()
+  .withLocalNode({
+    fork: 'https://polygon-mainnet.g.alchemy.com/v2/your-api-key',
+    chainId: 137,
+    forkBlockNumber: 50000000,
+  })
+  .withMetaMask()
+  .withNetwork({
+    name: 'Forked Polygon',
+    rpcUrl: 'http://localhost:8545',
+    chainId: 137,
+    symbol: 'MATIC',
+  })
+  .build();
+```
+
+### Base Mainnet Fork
+
+```typescript
+const baseFork = configure()
+  .withLocalNode({
+    fork: 'https://base-mainnet.g.alchemy.com/v2/your-api-key',
+    chainId: 8453,
+  })
+  .withMetaMask()
+  .withNetwork({
+    name: 'Forked Base',
+    rpcUrl: 'http://localhost:8545',
+    chainId: 8453,
+    symbol: 'ETH',
+  })
+  .build();
+```
+
+### Arbitrum Fork
+
+```typescript
+const arbitrumFork = configure()
+  .withLocalNode({
+    fork: 'https://arb-mainnet.g.alchemy.com/v2/your-api-key',
+    chainId: 42161,
+  })
+  .withMetaMask()
+  .withNetwork({
+    name: 'Forked Arbitrum',
+    rpcUrl: 'http://localhost:8545',
+    chainId: 42161,
+    symbol: 'ETH',
+  })
+  .build();
+```
+
+## Advanced Fork Scenarios
+
+### Multi-Chain Testing
+
+Set up multiple forks for cross-chain testing:
+
+```typescript
+// First test with Ethereum fork
+const ethTest = createOnchainTest(
+  configure()
+    .withLocalNode({
+      fork: 'https://eth-mainnet.g.alchemy.com/v2/your-api-key',
+      port: 8545,
+      chainId: 1,
+    })
+    .withMetaMask()
+    .build()
+);
+
+// Second test with Polygon fork
+const polygonTest = createOnchainTest(
+  configure()
+    .withLocalNode({
+      fork: 'https://polygon-mainnet.g.alchemy.com/v2/your-api-key',
+      port: 8546,
+      chainId: 137,
+    })
+    .withMetaMask()
+    .build()
+);
+```
+
+### Time-Sensitive Testing
+
+Fork from different time periods to test time-dependent logic:
+
+```typescript
+// Fork from before a major protocol upgrade
+const beforeUpgrade = configure()
+  .withLocalNode({
+    fork: 'https://eth-mainnet.g.alchemy.com/v2/your-api-key',
+    forkBlockNumber: 18000000, // Before upgrade
+    chainId: 1,
+  })
+  .build();
+
+// Fork from after the upgrade
+const afterUpgrade = configure()
+  .withLocalNode({
+    fork: 'https://eth-mainnet.g.alchemy.com/v2/your-api-key',
+    forkBlockNumber: 18500000, // After upgrade
+    chainId: 1,
+  })
+  .build();
+```
+
+## Troubleshooting
+
+### Common Issues and Solutions
+
+#### 1. Fork URL Connection Issues
+
+**Problem**: `Error: Could not connect to fork URL`
+
+**Solutions**:
+- Verify your RPC URL is correct and accessible
+- Check if your API key is valid and has sufficient credits
+- Ensure the RPC provider supports the block number you're trying to fork from
+- Try using a different RPC provider (Alchemy, Infura, QuickNode, etc.)
+
+```typescript
+// Good: Valid RPC URLs
+const validUrls = [
+  'https://eth-mainnet.g.alchemy.com/v2/your-api-key',
+  'https://mainnet.infura.io/v3/your-project-id',
+  'https://eth-mainnet.public.blastapi.io',
+];
+
+// Bad: Invalid or incomplete URLs
+const invalidUrls = [
+  'https://eth-mainnet.g.alchemy.com', // Missing API key
+  'http://localhost:8545',             // Local URL for fork source
+  'wss://eth-mainnet.ws.alchemy.com',  // WebSocket URL (use HTTP)
+];
+```
+
+#### 2. Block Number Too Recent
+
+**Problem**: `Error: Block number too recent or doesn't exist`
+
+**Solutions**:
+- Use a block number that's at least a few blocks behind the current tip
+- Check the current block number before setting `forkBlockNumber`
+- Remove `forkBlockNumber` to fork from the latest block
+
+```typescript
+// Good: Fork from a block that's known to exist
+const config = configure()
+  .withLocalNode({
+    fork: 'https://eth-mainnet.g.alchemy.com/v2/your-api-key',
+    forkBlockNumber: 18500000, // Use a confirmed block number
+  })
+  .build();
+
+// Better: Fork from latest block (no forkBlockNumber specified)
+const config = configure()
+  .withLocalNode({
+    fork: 'https://eth-mainnet.g.alchemy.com/v2/your-api-key',
+    // forkBlockNumber omitted - uses latest
+  })
+  .build();
+```
+
+#### 3. Port Already in Use
+
+**Problem**: `Error: Port 8545 is already in use`
+
+**Solutions**:
+- Use a different port number
+- Kill existing processes using the port
+- Use port 0 for automatic port selection
+
+```typescript
+// Solution 1: Use a different port
+const config = configure()
+  .withLocalNode({
+    port: 8546, // Different port
+    fork: 'https://eth-mainnet.g.alchemy.com/v2/your-api-key',
+  })
+  .build();
+
+// Solution 2: Let the system assign a port automatically
+const config = configure()
+  .withLocalNode({
+    port: 0, // Automatic port assignment
+    fork: 'https://eth-mainnet.g.alchemy.com/v2/your-api-key',
+  })
+  .build();
+```
+
+#### 4. Insufficient Account Balance
+
+**Problem**: Tests fail due to insufficient balance in test accounts
+
+**Solutions**:
+- Increase the initial balance for generated accounts
+- Use more accounts for testing
+- Set appropriate gas prices
+
+```typescript
+const config = configure()
+  .withLocalNode({
+    fork: 'https://eth-mainnet.g.alchemy.com/v2/your-api-key',
+    accounts: 20,                            // More test accounts
+    balance: '10000000000000000000000',      // 10,000 ETH per account
+    gasPrice: '1000000000',                  // 1 gwei (lower gas price)
+  })
+  .build();
+```
+
+#### 5. Chain ID Mismatch
+
+**Problem**: Wallet shows wrong network or transactions fail
+
+**Solutions**:
+- Ensure `chainId` in node config matches network config
+- Use the correct chain ID for the network you're forking
+
+```typescript
+// Correct: Chain IDs match
+const config = configure()
+  .withLocalNode({
+    fork: 'https://eth-mainnet.g.alchemy.com/v2/your-api-key',
+    chainId: 1, // Ethereum mainnet
+  })
+  .withMetaMask()
+  .withNetwork({
+    name: 'Forked Ethereum',
+    rpcUrl: 'http://localhost:8545',
+    chainId: 1, // Same chain ID
+    symbol: 'ETH',
+  })
+  .build();
+```
+
+#### 6. Slow Fork Initialization
+
+**Problem**: Fork takes too long to start or becomes unresponsive
+
+**Solutions**:
+- Use a faster RPC provider
+- Fork from an earlier block number
+- Increase timeout values
+- Use a local archive node if available
+
+```typescript
+// Use a recent but not latest block for faster forking
+const config = configure()
+  .withLocalNode({
+    fork: 'https://eth-mainnet.g.alchemy.com/v2/your-api-key',
+    forkBlockNumber: Math.max(currentBlock - 100, 0), // 100 blocks ago
+  })
+  .build();
+```
+
+### Performance Optimization
+
+#### 1. Choose the Right Block Number
+
+- **Latest block**: Slowest, but has most recent state
+- **Specific block**: Faster, reproducible results
+- **Earlier blocks**: Fastest, but may not have recent contracts
+
+#### 2. RPC Provider Selection
+
+- **Paid providers** (Alchemy, Infura): Faster, more reliable
+- **Public endpoints**: Free but may be rate-limited
+- **Local archive node**: Fastest but requires setup
+
+#### 3. Account Configuration
+
+```typescript
+// Optimized for performance
+const config = configure()
+  .withLocalNode({
+    fork: 'https://eth-mainnet.g.alchemy.com/v2/your-api-key',
+    accounts: 5,                        // Fewer accounts = faster startup
+    balance: '100000000000000000000',   // 100 ETH is usually enough
+    gasPrice: '1000000000',             // 1 gwei for faster execution
+    blockTime: 0,                       // Instant mining
+  })
+  .build();
+```
+
+## Best Practices
+
+1. **Use specific block numbers** for reproducible tests
+2. **Start with smaller balances** and increase if needed
+3. **Use different ports** for parallel test execution
+4. **Cache fork state** when possible to speed up subsequent runs
+5. **Monitor RPC usage** to avoid hitting rate limits
+6. **Clean up nodes** after tests to free resources
+7. **Use appropriate gas settings** for your test scenarios
