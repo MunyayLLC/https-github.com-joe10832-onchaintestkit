@@ -8,7 +8,7 @@ console.log("Preparing Coinbase Wallet for testing...")
 // Execute the shell script for Coinbase Wallet preparation
 const scriptPath = path.join(process.cwd(), "src", "cli", "prepare-coinbase.sh")
 try {
-  execFileSync('chmod', ['+x', scriptPath], {
+  execFileSync("chmod", ["+x", scriptPath], {
     stdio: "inherit",
     cwd: process.cwd(),
   })

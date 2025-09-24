@@ -8,7 +8,7 @@ console.log("Preparing MetaMask for testing...")
 // Execute the shell script for MetaMask preparation
 const scriptPath = path.join(process.cwd(), "src", "cli", "prepare-metamask.sh")
 try {
-  execFileSync('chmod', ['+x', scriptPath], {
+  execFileSync("chmod", ["+x", scriptPath], {
     stdio: "inherit",
     cwd: process.cwd(),
   })
