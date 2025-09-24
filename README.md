@@ -104,43 +104,72 @@ Fork mode allows you to create a local blockchain that mirrors the exact state o
 
 ### What is Fork Mode?
 
-Fork mode creates a local copy of a blockchain network at a specific point in time. This means you can:
-- Test with real DeFi protocols (Uniswap, Aave, Compound, etc.)
-- Access actual token balances and contract states
-- Reproduce production bugs in a controlled environment
-- Test complex scenarios without deployment costs
+Fork mode creates a local copy of a blockchain network at a specific point in time. Think of it as taking a "snapshot" of mainnet (or any network) and running it locally for testing purposes.
+
+**Why is this powerful?** Instead of deploying your own test contracts, you can test directly against the real contracts that are already deployed on mainnet. This means you can:
+
+- **Test with real DeFi protocols** (Uniswap, Aave, Compound, etc.) - no need to deploy or mock these complex systems
+- **Access actual token balances and contract states** - test with the exact same data your users will interact with
+- **Reproduce production bugs** in a controlled environment where you can debug safely
+- **Test complex scenarios without deployment costs** - no gas fees, no waiting for transactions
+- **Validate integrations** with existing protocols before going live
+
+**Perfect for:** Integration testing, debugging production issues, testing with real market conditions, and validating complex multi-protocol interactions.
 
 ### Quick Fork Mode Example
 
 ```typescript
 import { configure, createOnchainTest } from '@coinbase/onchaintestkit';
 
-// Fork Ethereum mainnet for testing
+// Fork Ethereum mainnet for testing with real contracts and liquidity
 const test = createOnchainTest(
   configure()
     .withLocalNode({
-      fork: 'https://eth-mainnet.g.alchemy.com/v2/your-api-key',
-      forkBlockNumber: 18500000, // Optional: fork from specific block
+      fork: 'https://eth-mainnet.g.alchemy.com/v2/your-api-key', // Your RPC endpoint
+      forkBlockNumber: 18500000, // Optional: fork from specific block for reproducible tests
       chainId: 1,
+      // Pre-fund test accounts with plenty of ETH for gas and testing
+      accounts: 10,
+      balance: '100000000000000000000', // 100 ETH per account
     })
     .withMetaMask()
     .withNetwork({
       name: 'Forked Ethereum',
-      rpcUrl: 'http://localhost:8545',
+      rpcUrl: 'http://localhost:8545', // Local node will run here
       chainId: 1,
       symbol: 'ETH',
     })
     .build()
 );
 
-test('swap on forked Uniswap', async ({ page, metamask }) => {
-  // Test with real Uniswap contracts and liquidity
+test('swap tokens on forked Uniswap', async ({ page, metamask }) => {
+  // Navigate to Uniswap - this will use the REAL Uniswap contracts!
   await page.goto('https://app.uniswap.org');
-  // ... your test logic
+  
+  // Connect your test wallet
+  await page.getByRole('button', { name: 'Connect Wallet' }).click();
+  await page.getByText('MetaMask').click();
+  await metamask.handleAction(BaseActionType.CONNECT_TO_DAPP);
+  
+  // Now you can test swaps with real liquidity pools and contracts
+  // The local fork has all the same state as mainnet at block 18500000
+  await page.getByRole('button', { name: 'Swap' }).click();
+  // ... rest of your test logic
 });
 ```
 
+**What's happening here?**
+1. **Fork Creation**: We create a local blockchain that copies all data from Ethereum mainnet
+2. **Real Contracts**: Your tests interact with the actual Uniswap contracts deployed on mainnet
+3. **Test Accounts**: Pre-funded accounts let you test without worrying about gas or token balances
+4. **Local Execution**: Everything runs locally, so it's fast and free
+
 For detailed fork mode documentation, see [docs/node/overview.mdx](docs/node/overview.mdx) and [docs/node/configuration.mdx](docs/node/configuration.mdx).
+
+**Learn more:**
+- **[Fork Mode Overview](docs/node/overview.mdx)** - Concepts, benefits, and practical examples
+- **[Node Configuration](docs/node/configuration.mdx)** - Complete setup guide and troubleshooting
+- **[Fork Mode Example](example/fork-mode-example.js)** - Working code examples you can run
 
 ## Configuration Builder
 

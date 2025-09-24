@@ -67,16 +67,19 @@ const test = createOnchainTest(
 
 ### Testing DeFi Interactions
 
+This example shows how to test lending protocol interactions using real Aave contracts and liquidity:
+
 ```typescript
 // Test lending protocol interactions with real liquidity
 const test = createOnchainTest(
   configure()
     .withLocalNode({
       fork: 'https://eth-mainnet.g.alchemy.com/v2/your-api-key',
-      forkBlockNumber: 18500000,
+      forkBlockNumber: 18500000, // Use a known good block with stable state
       chainId: 1,
-      // Pre-fund test accounts with ETH
-      balance: '100000000000000000000', // 100 ETH
+      // Pre-fund test accounts with ETH for gas and testing
+      accounts: 5,
+      balance: '100000000000000000000', // 100 ETH per account
     })
     .withMetaMask()
     .withNetwork({
@@ -88,30 +91,50 @@ const test = createOnchainTest(
     .build()
 );
 
-test('deposit ETH to Aave', async ({ page, metamask }) => {
-  // Navigate to Aave interface
+test('deposit ETH to Aave lending pool', async ({ page, metamask }) => {
+  // Navigate to Aave interface - using real Aave protocol
   await page.goto('https://app.aave.com');
   
-  // Connect wallet
+  // Connect wallet to the DApp
   await page.getByRole('button', { name: 'Connect Wallet' }).click();
   await page.getByText('MetaMask').click();
   await metamask.handleAction(BaseActionType.CONNECT_TO_DAPP);
   
-  // Perform deposit with real Aave contracts
+  // Perform deposit with real Aave contracts and current interest rates
   await page.getByRole('button', { name: 'Supply' }).click();
-  // ... rest of test logic
+  await page.getByTestId('asset-ETH').click();
+  
+  // Enter amount and confirm transaction
+  await page.getByPlaceholder('0.00').fill('1.0');
+  await page.getByRole('button', { name: 'Continue' }).click();
+  
+  // Handle the transaction approval in MetaMask
+  await metamask.handleAction(BaseActionType.APPROVE_TRANSACTION);
+  
+  // Verify the deposit was successful by checking aToken balance
+  await expect(page.getByTestId('supplied-balance')).toContainText('1.00 ETH');
 });
 ```
 
+**Why this works better than mocks:**
+- **Real interest rates**: Test with actual APY calculations
+- **Real contract interactions**: Catch integration issues that mocks might miss
+- **Real token amounts**: Test with actual liquidity and slippage
+- **Real gas costs**: Understand actual transaction costs (without paying them)
+
 ### Testing NFT Marketplace
 
+Here's how to test NFT marketplace interactions using real collections and marketplace contracts:
+
 ```typescript
-// Fork to test NFT interactions with real collections
+// Fork to test NFT interactions with real collections and marketplace data
 const test = createOnchainTest(
   configure()
     .withLocalNode({
       fork: 'https://eth-mainnet.g.alchemy.com/v2/your-api-key',
       chainId: 1,
+      // Ensure sufficient balance for NFT purchases
+      balance: '50000000000000000000', // 50 ETH per account
     })
     .withMetaMask()
     .build()
@@ -119,10 +142,38 @@ const test = createOnchainTest(
 
 test('bid on NFT auction', async ({ page, metamask }) => {
   // Test with real NFT collections and marketplace contracts
-  await page.goto('https://opensea.io/collection/your-collection');
-  // ... test NFT bidding logic
+  await page.goto('https://opensea.io/collection/bored-ape-yacht-club');
+  
+  // Connect wallet to OpenSea
+  await page.getByRole('button', { name: 'Connect wallet' }).click();
+  await page.getByText('MetaMask').click();
+  await metamask.handleAction(BaseActionType.CONNECT_TO_DAPP);
+  
+  // Select an NFT that's available for bidding
+  await page.getByTestId('asset-card').first().click();
+  
+  // Make an offer using real marketplace contracts
+  await page.getByRole('button', { name: 'Make offer' }).click();
+  await page.getByPlaceholder('Amount').fill('1.5');
+  
+  // Approve WETH spending (real WETH contract interaction)
+  await page.getByRole('button', { name: 'Continue' }).click();
+  await metamask.handleAction(BaseActionType.APPROVE_TOKEN);
+  
+  // Submit the bid transaction
+  await page.getByRole('button', { name: 'Make offer' }).click();
+  await metamask.handleAction(BaseActionType.APPROVE_TRANSACTION);
+  
+  // Verify the bid was placed successfully
+  await expect(page.getByText('Offer submitted')).toBeVisible();
 });
 ```
+
+**Real marketplace benefits:**
+- **Actual NFT metadata**: Test with real images, traits, and collection data
+- **Real pricing**: Test with current floor prices and market dynamics
+- **Real contract complexity**: Catch edge cases in marketplace logic
+- **Real royalty handling**: Test creator royalties and marketplace fees
 
 ## Key Benefits
 
@@ -142,3 +193,14 @@ Fork mode is ideal for:
 - End-to-end testing of complete user workflows
 
 For simpler unit tests or when you need a clean state, consider using a fresh local node without forking.
+
+## Next Steps
+
+Ready to start using fork mode in your tests? Here's what to do next:
+
+1. **Setup**: Follow the [Node Configuration guide](./configuration.mdx) for detailed setup instructions
+2. **Troubleshooting**: If you run into issues, check the comprehensive [troubleshooting section](./configuration.mdx#troubleshooting)  
+3. **Examples**: Try the [fork mode example](https://github.com/coinbase/onchaintestkit/blob/main/example/fork-mode-example.js) to see working code
+4. **Advanced usage**: Learn about [multi-chain testing and time-sensitive scenarios](./configuration.mdx#advanced-fork-scenarios)
+
+**Pro tip**: Start with a simple example like forking mainnet and querying token balances before building complex test scenarios.

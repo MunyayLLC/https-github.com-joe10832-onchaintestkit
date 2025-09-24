@@ -367,6 +367,104 @@ const config = configure()
   .build();
 ```
 
+#### 7. Memory and Performance Issues
+
+**Problem**: High memory usage or slow performance during testing
+
+**Solutions**:
+- Limit the number of test accounts to reduce memory overhead
+- Use specific block numbers instead of latest to reduce state size
+- Close nodes properly after tests to free memory
+- Consider using lighter RPC providers for non-critical tests
+
+```typescript
+// Memory-optimized configuration
+const config = configure()
+  .withLocalNode({
+    fork: 'https://eth-mainnet.g.alchemy.com/v2/your-api-key',
+    forkBlockNumber: 18500000,        // Specific block reduces memory
+    accounts: 3,                      // Fewer accounts = less memory
+    balance: '10000000000000000000',  // 10 ETH is usually sufficient
+    gasPrice: '1000000000',           // 1 gwei for faster execution
+  })
+  .build();
+```
+
+#### 8. Transaction Failures on Fork
+
+**Problem**: Transactions that work on mainnet fail on the fork
+
+**Solutions**:
+- Check that the fork block has the necessary contract state
+- Verify account balances are sufficient for the transaction
+- Ensure gas limits are appropriate for the forked network
+- Check that the contract exists at the expected address on the fork block
+
+```typescript
+// Debug transaction failures
+const config = configure()
+  .withLocalNode({
+    fork: 'https://eth-mainnet.g.alchemy.com/v2/your-api-key',
+    forkBlockNumber: 18500000,
+    accounts: 10,
+    balance: '1000000000000000000000',  // Large balance for debugging
+    gasPrice: '20000000000',            // Higher gas price
+    gasLimit: '30000000',               // Higher gas limit
+  })
+  .build();
+```
+
+#### 9. RPC Rate Limiting
+
+**Problem**: `Error: Too many requests` or connection timeouts
+
+**Solutions**:
+- Upgrade to a paid RPC provider plan
+- Use multiple RPC endpoints and rotate between them
+- Add delays between requests during setup
+- Cache fork state when possible
+
+```typescript
+// Rate limit friendly configuration
+const config = configure()
+  .withLocalNode({
+    fork: 'https://eth-mainnet.g.alchemy.com/v2/your-api-key',
+    forkBlockNumber: 18500000,    // Specific block reduces requests
+    accounts: 5,                  // Fewer accounts = fewer setup requests
+  })
+  .build();
+```
+
+#### 10. Network-Specific Issues
+
+**Problem**: Certain features don't work as expected on different networks
+
+**Solutions**:
+- Verify the network supports the features you're testing
+- Check block explorer for contract deployment blocks
+- Use network-appropriate gas prices and limits
+- Verify the RPC endpoint supports the specific network features
+
+```typescript
+// Network-specific optimizations
+const polygonConfig = configure()
+  .withLocalNode({
+    fork: 'https://polygon-mainnet.g.alchemy.com/v2/your-api-key',
+    chainId: 137,
+    gasPrice: '30000000000',      // Higher gas price for Polygon
+    forkBlockNumber: 50000000,    // Recent Polygon block
+  })
+  .build();
+
+const arbitrumConfig = configure()
+  .withLocalNode({
+    fork: 'https://arb-mainnet.g.alchemy.com/v2/your-api-key',
+    chainId: 42161,
+    gasPrice: '100000000',        // Lower gas price for Arbitrum
+  })
+  .build();
+```
+
 ### Performance Optimization
 
 #### 1. Choose the Right Block Number
@@ -405,3 +503,56 @@ const config = configure()
 5. **Monitor RPC usage** to avoid hitting rate limits
 6. **Clean up nodes** after tests to free resources
 7. **Use appropriate gas settings** for your test scenarios
+
+### Debugging Tips
+
+When fork mode isn't working as expected, here are some debugging strategies:
+
+#### Enable Verbose Logging
+
+```typescript
+// Add logging to understand what's happening
+const config = configure()
+  .withLocalNode({
+    fork: 'https://eth-mainnet.g.alchemy.com/v2/your-api-key',
+    forkBlockNumber: 18500000,
+    // Add these for debugging
+    verbose: true,                    // Enable detailed logging
+    debug: true,                      // Show debug information
+  })
+  .build();
+```
+
+#### Test Fork Connection First
+
+```typescript
+// Simple test to verify fork is working
+test('verify fork connection', async ({ node }) => {
+  // Check that we can query basic blockchain data
+  const blockNumber = await node.getBlockNumber();
+  expect(blockNumber).toBeGreaterThan(18500000);
+  
+  // Check that we have test accounts with balance
+  const balance = await node.getBalance('0x...'); // Your test account address
+  expect(balance).toBeGreaterThan(0);
+  
+  // Verify we can interact with a known contract
+  const uniswapRouter = '0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45';
+  const code = await node.getCode(uniswapRouter);
+  expect(code).not.toBe('0x'); // Contract should exist on fork
+});
+```
+
+#### Compare Fork vs Mainnet State
+
+```typescript
+// Debug by comparing fork state to live mainnet
+test('compare fork to mainnet', async ({ node }) => {
+  // Query the same data from both fork and mainnet
+  const forkBalance = await node.getBalance('0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'); // Vitalik's address
+  console.log('Fork balance:', forkBalance);
+  
+  // This should match mainnet at the fork block number
+  // Use a mainnet RPC to verify the expected balance
+});
+```
