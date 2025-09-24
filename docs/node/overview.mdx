@@ -23,12 +23,14 @@ Here's how to set up fork mode in your tests:
 ```typescript
 import { configure, createOnchainTest } from '@coinbase/onchaintestkit';
 
-// Fork from Ethereum mainnet
+// Fork from Ethereum mainnet to test with real contracts and data
 const test = createOnchainTest(
   configure()
     .withLocalNode({
       fork: 'https://eth-mainnet.g.alchemy.com/v2/your-api-key',
       chainId: 1,
+      // Configure sufficient balance for testing
+      balance: '100000000000000000000', // 100 ETH per test account
     })
     .withMetaMask()
     .withNetwork({
@@ -42,6 +44,7 @@ const test = createOnchainTest(
 
 test('swap tokens on forked mainnet', async ({ page, metamask, node }) => {
   // Your test now has access to all mainnet contracts and balances
+  // This includes real Uniswap pools, token contracts, and liquidity data
   // Test interactions with Uniswap, Aave, etc.
 });
 ```
@@ -68,15 +71,18 @@ const test = createOnchainTest(
 ### Testing DeFi Interactions
 
 ```typescript
+import { configure, createOnchainTest } from '@coinbase/onchaintestkit';
+import { BaseActionType } from '@coinbase/onchaintestkit';
+
 // Test lending protocol interactions with real liquidity
 const test = createOnchainTest(
   configure()
     .withLocalNode({
       fork: 'https://eth-mainnet.g.alchemy.com/v2/your-api-key',
-      forkBlockNumber: 18500000,
+      forkBlockNumber: 18500000, // Fork from a specific block for reproducible tests
       chainId: 1,
-      // Pre-fund test accounts with ETH
-      balance: '100000000000000000000', // 100 ETH
+      // Pre-fund test accounts with ETH for gas and transactions
+      balance: '100000000000000000000', // 100 ETH per account
     })
     .withMetaMask()
     .withNetwork({
@@ -89,37 +95,50 @@ const test = createOnchainTest(
 );
 
 test('deposit ETH to Aave', async ({ page, metamask }) => {
-  // Navigate to Aave interface
+  // Navigate to Aave interface - this will use real Aave contracts
   await page.goto('https://app.aave.com');
   
-  // Connect wallet
+  // Connect MetaMask wallet to the DApp
   await page.getByRole('button', { name: 'Connect Wallet' }).click();
   await page.getByText('MetaMask').click();
   await metamask.handleAction(BaseActionType.CONNECT_TO_DAPP);
   
-  // Perform deposit with real Aave contracts
+  // Perform deposit with real Aave contracts and liquidity data
   await page.getByRole('button', { name: 'Supply' }).click();
-  // ... rest of test logic
+  // ... rest of test logic for completing the deposit
 });
 ```
 
 ### Testing NFT Marketplace
 
 ```typescript
-// Fork to test NFT interactions with real collections
+import { configure, createOnchainTest } from '@coinbase/onchaintestkit';
+
+// Fork to test NFT interactions with real collections and marketplace data
 const test = createOnchainTest(
   configure()
     .withLocalNode({
       fork: 'https://eth-mainnet.g.alchemy.com/v2/your-api-key',
       chainId: 1,
+      // Ensure sufficient ETH for NFT transactions and gas
+      balance: '50000000000000000000', // 50 ETH per account
     })
     .withMetaMask()
+    .withNetwork({
+      name: 'Forked Mainnet',
+      rpcUrl: 'http://localhost:8545',
+      chainId: 1,
+      symbol: 'ETH',
+    })
     .build()
 );
 
 test('bid on NFT auction', async ({ page, metamask }) => {
   // Test with real NFT collections and marketplace contracts
   await page.goto('https://opensea.io/collection/your-collection');
+  
+  // Connect wallet and place bid using real marketplace contracts
+  // This interacts with actual OpenSea contracts and NFT data
   // ... test NFT bidding logic
 });
 ```
