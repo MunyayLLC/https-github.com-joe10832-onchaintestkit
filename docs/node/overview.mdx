@@ -68,6 +68,8 @@ const test = createOnchainTest(
 ### Testing DeFi Interactions
 
 ```typescript
+import { configure, createOnchainTest, BaseActionType } from '@coinbase/onchaintestkit';
+
 // Test lending protocol interactions with real liquidity
 const test = createOnchainTest(
   configure()
@@ -106,6 +108,8 @@ test('deposit ETH to Aave', async ({ page, metamask }) => {
 ### Testing NFT Marketplace
 
 ```typescript
+import { configure, createOnchainTest } from '@coinbase/onchaintestkit';
+
 // Fork to test NFT interactions with real collections
 const test = createOnchainTest(
   configure()
@@ -142,3 +146,25 @@ Fork mode is ideal for:
 - End-to-end testing of complete user workflows
 
 For simpler unit tests or when you need a clean state, consider using a fresh local node without forking.
+
+## Getting Started Tips
+
+**First time using fork mode?** Here are some quick tips to ensure success:
+
+1. **Start with a working RPC URL**: Use a reliable provider like Alchemy, Infura, or QuickNode
+2. **Use a recent but stable block**: Don't fork from the very latest block (use one that's 10-20 blocks old)
+3. **Test with a simple example first**: Before complex scenarios, verify your fork works with a basic configuration
+4. **Check your API key limits**: Fork mode can use significant RPC calls during startup
+
+```typescript
+// Minimal working fork setup for testing
+const test = createOnchainTest(
+  configure()
+    .withLocalNode({
+      fork: 'https://eth-mainnet.g.alchemy.com/v2/your-api-key',
+      // Start simple - add more options as needed
+    })
+    .withMetaMask()
+    .build()
+);
+```
