@@ -37,7 +37,7 @@ E2E_TEST_SEED_PHRASE="your test wallet seed phrase"
 
 ```typescript
 // walletConfig/metamaskWalletConfig.ts
-import { configure } from 'e2e/onchainTestKit';
+import { configure } from '@coinbase/onchaintestkit';
 import { baseSepolia } from 'viem/chains';
 
 export const DEFAULT_PASSWORD = 'PASSWORD';
@@ -62,7 +62,7 @@ export const metamaskWalletConfig = configure()
 
 ```typescript
 import { metamaskWalletConfig } from 'e2e/walletConfig/metamaskWalletConfig';
-import { BaseActionType, createOnchainTest } from './onchainTestKit';
+import { BaseActionType, createOnchainTest } from '@coinbase/onchaintestkit';
 
 const test = createOnchainTest(metamaskWalletConfig);
 const { expect } = test;
@@ -104,29 +104,41 @@ Fork mode allows you to create a local blockchain that mirrors the exact state o
 
 ### What is Fork Mode?
 
-Fork mode creates a local copy of a blockchain network at a specific point in time. This means you can:
-- Test with real DeFi protocols (Uniswap, Aave, Compound, etc.)
-- Access actual token balances and contract states
-- Reproduce production bugs in a controlled environment
-- Test complex scenarios without deployment costs
+Fork mode creates a local copy of a blockchain network at a specific point in time. Think of it as taking a "snapshot" of mainnet and running it locally. This means you can:
+
+- **Test with real DeFi protocols** (Uniswap, Aave, Compound, etc.)
+- **Access actual token balances** and contract states from live networks
+- **Reproduce production bugs** in a controlled environment
+- **Test complex scenarios** without deployment costs or gas fees
+- **Use real liquidity pools** for realistic trading simulations
+
+### Why Use Fork Mode?
+
+Traditional test networks often lack:
+- Real contract interactions and dependencies
+- Actual liquidity and market conditions  
+- Production-level complexity and edge cases
+- Historical state and transaction data
+
+Fork mode solves these issues by giving you a complete replica of the live network for thorough testing.
 
 ### Quick Fork Mode Example
 
 ```typescript
 import { configure, createOnchainTest } from '@coinbase/onchaintestkit';
 
-// Fork Ethereum mainnet for testing
+// Fork Ethereum mainnet for testing with real contracts and data
 const test = createOnchainTest(
   configure()
     .withLocalNode({
-      fork: 'https://eth-mainnet.g.alchemy.com/v2/your-api-key',
-      forkBlockNumber: 18500000, // Optional: fork from specific block
-      chainId: 1,
+      fork: 'https://eth-mainnet.g.alchemy.com/v2/your-api-key', // Use your RPC provider
+      forkBlockNumber: 18500000, // Optional: fork from specific block for reproducible tests
+      chainId: 1, // Ethereum mainnet chain ID
     })
-    .withMetaMask()
+    .withMetaMask() // Configure MetaMask wallet
     .withNetwork({
       name: 'Forked Ethereum',
-      rpcUrl: 'http://localhost:8545',
+      rpcUrl: 'http://localhost:8545', // Local node URL
       chainId: 1,
       symbol: 'ETH',
     })
@@ -134,8 +146,10 @@ const test = createOnchainTest(
 );
 
 test('swap on forked Uniswap', async ({ page, metamask }) => {
-  // Test with real Uniswap contracts and liquidity
+  // Test with real Uniswap contracts and liquidity pools
   await page.goto('https://app.uniswap.org');
+  // Connect to forked network, interact with real contracts
+  // All transactions happen on your local fork - no mainnet costs!
   // ... your test logic
 });
 ```

@@ -68,6 +68,8 @@ const test = createOnchainTest(
 ### Testing DeFi Interactions
 
 ```typescript
+import { configure, createOnchainTest, BaseActionType } from '@coinbase/onchaintestkit';
+
 // Test lending protocol interactions with real liquidity
 const test = createOnchainTest(
   configure()
@@ -106,6 +108,8 @@ test('deposit ETH to Aave', async ({ page, metamask }) => {
 ### Testing NFT Marketplace
 
 ```typescript
+import { configure, createOnchainTest } from '@coinbase/onchaintestkit';
+
 // Fork to test NFT interactions with real collections
 const test = createOnchainTest(
   configure()

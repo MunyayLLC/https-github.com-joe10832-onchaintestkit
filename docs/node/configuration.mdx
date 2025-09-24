@@ -396,6 +396,36 @@ const config = configure()
   .build();
 ```
 
+### Debugging Tips
+
+When fork mode isn't working as expected:
+
+1. **Verify RPC connectivity**: Test your RPC URL manually with curl:
+   ```bash
+   curl -X POST -H "Content-Type: application/json" \
+     --data '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}' \
+     https://eth-mainnet.g.alchemy.com/v2/your-api-key
+   ```
+
+2. **Check block availability**: Ensure the block number exists:
+   ```bash
+   curl -X POST -H "Content-Type: application/json" \
+     --data '{"jsonrpc":"2.0","method":"eth_getBlockByNumber","params":["0x11A4C00", false],"id":1}' \
+     https://eth-mainnet.g.alchemy.com/v2/your-api-key
+   ```
+
+3. **Enable verbose logging**: Add logging to see what's happening:
+   ```typescript
+   const config = configure()
+     .withLocalNode({
+       fork: 'https://eth-mainnet.g.alchemy.com/v2/your-api-key',
+       // Add these for debugging
+       logging: true,
+       verbose: true,
+     })
+     .build();
+   ```
+
 ## Best Practices
 
 1. **Use specific block numbers** for reproducible tests
@@ -405,3 +435,6 @@ const config = configure()
 5. **Monitor RPC usage** to avoid hitting rate limits
 6. **Clean up nodes** after tests to free resources
 7. **Use appropriate gas settings** for your test scenarios
+8. **Test fork connection first** with a simple configuration before adding complexity
+9. **Keep API keys secure** and use environment variables
+10. **Choose stable block numbers** at least 10-20 blocks behind the latest
