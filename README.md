@@ -115,13 +115,15 @@ Fork mode creates a local copy of a blockchain network at a specific point in ti
 ```typescript
 import { configure, createOnchainTest } from '@coinbase/onchaintestkit';
 
-// Fork Ethereum mainnet for testing
+// Fork Ethereum mainnet for testing with real contracts and data
 const test = createOnchainTest(
   configure()
     .withLocalNode({
       fork: 'https://eth-mainnet.g.alchemy.com/v2/your-api-key',
-      forkBlockNumber: 18500000, // Optional: fork from specific block
+      forkBlockNumber: 18500000, // Optional: fork from specific block for reproducible tests
       chainId: 1,
+      // Fund test accounts with sufficient ETH for transactions
+      balance: '100000000000000000000', // 100 ETH per account
     })
     .withMetaMask()
     .withNetwork({
@@ -134,8 +136,9 @@ const test = createOnchainTest(
 );
 
 test('swap on forked Uniswap', async ({ page, metamask }) => {
-  // Test with real Uniswap contracts and liquidity
+  // Test with real Uniswap contracts and liquidity pools
   await page.goto('https://app.uniswap.org');
+  // Your test interacts with actual mainnet contract state
   // ... your test logic
 });
 ```

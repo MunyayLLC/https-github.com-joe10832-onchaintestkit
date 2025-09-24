@@ -22,6 +22,35 @@ const test = createOnchainTest(
 );
 ```
 
+### Getting Started Tips
+
+If you're new to fork mode, here are some practical tips to get started:
+
+1. **Start Simple**: Begin with a basic fork without specifying a block number - this uses the latest state
+2. **Use Demo Keys First**: Many RPC providers offer demo endpoints for testing
+3. **Check Your Balance**: Make sure your test accounts have enough ETH for the transactions you plan to test
+4. **Verify Chain ID**: Always match the chain ID in your node config with your network config
+
+```typescript
+// Beginner-friendly fork setup
+const simpleConfig = configure()
+  .withLocalNode({
+    // Using a demo endpoint - replace with your own API key for production use
+    fork: 'https://eth-mainnet.g.alchemy.com/v2/demo',
+    chainId: 1, // Ethereum mainnet
+    // Good starting balance for most tests
+    balance: '100000000000000000000', // 100 ETH
+  })
+  .withMetaMask()
+  .withNetwork({
+    name: 'Local Fork',
+    rpcUrl: 'http://localhost:8545',
+    chainId: 1, // Must match node chainId
+    symbol: 'ETH',
+  })
+  .build();
+```
+
 ## Configuration Options
 
 The `withLocalNode()` method accepts a `NodeConfig` object with the following options:
@@ -377,9 +406,15 @@ const config = configure()
 
 #### 2. RPC Provider Selection
 
-- **Paid providers** (Alchemy, Infura): Faster, more reliable
-- **Public endpoints**: Free but may be rate-limited
-- **Local archive node**: Fastest but requires setup
+Different providers offer varying performance and reliability:
+
+- **Alchemy** (`https://eth-mainnet.g.alchemy.com/v2/API_KEY`): Fast, reliable, generous free tier
+- **Infura** (`https://mainnet.infura.io/v3/PROJECT_ID`): Well-established, good performance
+- **QuickNode** (`https://your-endpoint.quiknode.pro/API_KEY/`): High performance, premium features
+- **Public endpoints**: Free but may be slower and rate-limited
+- **Local archive node**: Fastest but requires significant setup and storage
+
+Choose paid providers for production testing and public endpoints for initial experimentation.
 
 #### 3. Account Configuration
 
