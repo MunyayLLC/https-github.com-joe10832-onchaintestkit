@@ -47,6 +47,24 @@ const _polygonForkConfig = configure()
 
 console.log("Polygon fork configuration created successfully!")
 
+// Fork Base Sepolia testnet for staging-environment testing
+const _baseForkConfig = configure()
+  .withLocalNode({
+    fork: "https://sepolia.base.org", // Base Sepolia testnet
+    chainId: 84532,
+    port: 8547, // Different port for parallel testing
+  })
+  .withMetaMask()
+  .withNetwork({
+    name: "Forked Base Sepolia",
+    rpcUrl: "http://localhost:8547",
+    chainId: 84532,
+    symbol: "ETH",
+  })
+  .build()
+
+console.log("Base Sepolia fork configuration created successfully!")
+
 // Test creating onchain test with fork mode
 try {
   const _forkTest = createOnchainTest(forkConfig)
