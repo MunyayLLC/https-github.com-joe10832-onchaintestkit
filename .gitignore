@@ -37,3 +37,6 @@ yarn-error.log*
 example/smart-contracts/lib/
 example/smart-contracts/out/
 example/smart-contracts/cache/
+
+# Extension downloads and extractions
+e2e/extensions/
