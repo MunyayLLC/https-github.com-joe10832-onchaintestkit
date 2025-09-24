@@ -172,6 +172,33 @@ const config = configure()
 - `withNetwork()`: Configure network settings
 - `withCustomSetup()`: Add custom setup steps
 
+## Demo Setup
+
+The repository includes a safe demo cloning script to help you quickly set up example projects:
+
+```bash
+# Clone the default demo repository
+./clone-demo.sh
+
+# Clone with custom directory name
+./clone-demo.sh -d my-demo-project
+
+# Clean existing directory and clone
+./clone-demo.sh --clean --force
+
+# Clone a specific repository
+./clone-demo.sh https://github.com/user/specific-repo.git
+
+# Show all available options
+./clone-demo.sh --help
+```
+
+The script includes comprehensive safety measures to prevent accidental system damage:
+- Validates directory paths to prevent removal of critical system directories
+- Requires confirmation for directory removal operations (unless `--force` is used)
+- Uses safe path normalization and validation
+- Provides colored output for better user experience
+
 ## Development
 
 - Run `yarn` to install dependencies
