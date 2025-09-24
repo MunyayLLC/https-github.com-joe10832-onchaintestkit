@@ -37,7 +37,7 @@ print_info "Target directory: $TARGET_DIR"
 
 # Security check: Prevent dangerous directory operations
 # Fixed: Use $HOME instead of "~" for proper home directory comparison
-if [[ -z "$TARGET_DIR" || "$TARGET_DIR" == "/" || "$TARGET_DIR" == "$HOME" || "$TARGET_DIR" == "." || "$TARGET_DIR" == ".." ]]; then
+if [[ -z "$TARGET_DIR" || "$TARGET_DIR" == "/" || "$TARGET_DIR" == "~" || "$TARGET_DIR" == "$HOME" || "$TARGET_DIR" == "." || "$TARGET_DIR" == ".." ]]; then
     print_error "Invalid or dangerous target directory: $TARGET_DIR"
     print_error "Please specify a safe target directory for MetaMask extension"
     exit 1
