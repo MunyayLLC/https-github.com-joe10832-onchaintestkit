@@ -10,7 +10,7 @@ export enum BaseActionType {
   // network actions
   SWITCH_NETWORK = "switchNetwork",
 
-  // dapp actions
+  // DApps actions
   CONNECT_TO_DAPP = "connectToDapp",
 
   // transaction actions

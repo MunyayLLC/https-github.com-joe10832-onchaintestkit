@@ -89,7 +89,7 @@ test('connect wallet and swap', async ({ page, metamask }) => {
 - **Playwright Integration**: Built on top of Playwright for reliable browser automation
 - **Multiple Wallet Support**: Support for MetaMask, Coinbase Wallet, and Phantom
 - **Action Handling**: Simplified wallet action management
-  - Connect to DApp
+  - Connect to DApps
   - Handle transactions
   - Manage token approvals
   - Handle signatures
