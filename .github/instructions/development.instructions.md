@@ -1,6 +1,6 @@
 # Development Instructions for Onchain Test Kit
 
-This file provides development-specific instructions for AI agents working on the Onchain Test Kit project.
+This file provides development-specific instructions for AI agents working on the Onchain Test Kit project. For general project context, also refer to AGENTS.md and .github/copilot-instructions.md. For specialized guidance, see testing.instructions.md and wallet-integration.instructions.md.
 
 ## Development Environment Setup
 

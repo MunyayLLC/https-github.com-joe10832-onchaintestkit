@@ -1,6 +1,6 @@
 # Wallet Integration Instructions for Onchain Test Kit
 
-This file provides specific instructions for AI agents working on wallet integrations in the Onchain Test Kit project.
+This file provides specific instructions for AI agents working on wallet integrations in the Onchain Test Kit project. For general project context, also refer to AGENTS.md and .github/copilot-instructions.md. For specialized guidance, see development.instructions.md and testing.instructions.md.
 
 ## Supported Wallets Overview
 

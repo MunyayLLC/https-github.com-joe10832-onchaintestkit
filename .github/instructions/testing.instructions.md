@@ -1,6 +1,6 @@
 # Testing Instructions for Onchain Test Kit
 
-This file provides comprehensive testing guidelines for AI agents working on the Onchain Test Kit project.
+This file provides comprehensive testing guidelines for AI agents working on the Onchain Test Kit project. For general project context, also refer to AGENTS.md and .github/copilot-instructions.md. For specialized guidance, see development.instructions.md and wallet-integration.instructions.md.
 
 ## Testing Philosophy
 
