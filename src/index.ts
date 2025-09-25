@@ -22,3 +22,9 @@ export type {
 
 // Utils
 export { setupRpcPortInterceptor } from "./node/NetworkInterceptor"
+export {
+  sortConnectorsByExplorerWallet,
+  sortConnectorsWithUnnecessarySpread,
+  sortConnectorsOptimized,
+} from "./utils/ConnectorUtil"
+export type { Connector } from "./utils/ConnectorUtil"
