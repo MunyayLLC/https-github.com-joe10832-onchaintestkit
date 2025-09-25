@@ -43,9 +43,9 @@ npm run clean
 # MetaMask - WORKS CORRECTLY
 npm run prepare-metamask
 
-# Coinbase & Phantom - CURRENTLY BROKEN (zip download issues)  
-npm run prepare-coinbase    # ⚠️ Known issue: zip download fails
-npm run prepare-phantom     # ⚠️ Known issue: zip download fails
+# Coinbase & Phantom - CURRENTLY BROKEN (zip download returns invalid 9-byte files)  
+npm run prepare-coinbase    # ⚠️ Known issue: zip download returns invalid 9-byte files
+npm run prepare-phantom     # ⚠️ Known issue: zip download returns invalid 9-byte files
 ```
 
 ### Validated Build Process
@@ -56,7 +56,7 @@ npm run prepare-phantom     # ⚠️ Known issue: zip download fails
 5. **Format command works** but tries to format extension files (ignorable errors)
 
 ### Known Issues & Workarounds
-- **Coinbase/Phantom preparation fails**: Zip download returns invalid files (9 bytes)
+- **Coinbase/Phantom preparation fails**: Zip download returns invalid 9-byte files
 - **Format command shows errors**: MetaMask extension files cause formatting errors (safe to ignore)
 - **Node version**: Requires >= 14.0.0, tested with Node.js 18+
 
