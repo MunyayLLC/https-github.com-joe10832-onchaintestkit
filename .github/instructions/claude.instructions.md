@@ -38,7 +38,7 @@ Use your systematic analysis capabilities to:
 3. Fix at the appropriate architectural level
 4. Add regression tests to prevent recurrence
 
-### for Code Reviews
+### For Code Reviews
 1. Analyze both immediate and long-term implications
 2. Verify architectural consistency
 3. Ensure proper error handling
