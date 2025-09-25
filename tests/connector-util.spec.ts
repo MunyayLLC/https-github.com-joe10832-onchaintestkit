@@ -3,7 +3,7 @@ import {
   type Connector,
   sortConnectorsByExplorerWallet,
   sortConnectorsOptimized,
-  sortConnectorsWithUnnecessarySpread,
+  sortConnectorsWithoutUnnecessarySpread,
 } from "../src/utils/ConnectorUtil"
 
 test.describe("ConnectorUtil", () => {
@@ -60,11 +60,11 @@ test.describe("ConnectorUtil", () => {
     expect(sorted.slice(3).every(c => !c.isExplorerWallet)).toBe(true)
   })
 
-  test("unnecessary spread operation should be avoided", () => {
+  test("corrected approach should work correctly", () => {
     const original = [...mockConnectors]
 
     // Both methods should produce the same result
-    const withSpread = sortConnectorsWithUnnecessarySpread(mockConnectors)
+    const withSpread = sortConnectorsWithoutUnnecessarySpread(mockConnectors)
     const optimized = sortConnectorsOptimized(mockConnectors)
 
     expect(withSpread).toEqual(optimized)
@@ -74,8 +74,8 @@ test.describe("ConnectorUtil", () => {
   })
 
   test("demonstrate performance difference (conceptual)", () => {
-    // This test demonstrates the concept - in practice, the spread operation
-    // creates an unnecessary copy since the sort function already creates one
+    // This test demonstrates the concept - both functions use the corrected approach
+    // but we compare them for consistency
     const connectors = Array.from({ length: 1000 }, (_, i) => ({
       id: `connector-${i}`,
       name: `Connector ${i}`,
@@ -83,11 +83,10 @@ test.describe("ConnectorUtil", () => {
       isExplorerWallet: i % 3 === 0,
     }))
 
-    // The unnecessary spread version creates two array copies:
-    // 1. [...connectors] creates the first copy
-    // 2. sortConnectorsByExplorerWallet creates the second copy internally
+    // The corrected version (without unnecessary spread) for comparison:
+    // This function calls sortConnectorsByExplorerWallet directly which creates one copy
     const start1 = Date.now()
-    const withSpread = sortConnectorsWithUnnecessarySpread(connectors)
+    const withSpread = sortConnectorsWithoutUnnecessarySpread(connectors)
     const time1 = Date.now() - start1
 
     // The optimized version creates only one copy:
@@ -99,10 +98,10 @@ test.describe("ConnectorUtil", () => {
     // Results should be identical
     expect(withSpread).toEqual(optimized)
 
-    // Log the performance difference (optimized should be faster or equal)
-    console.log(`With spread: ${time1}ms, Optimized: ${time2}ms`)
+    // Log the performance difference (both should perform similarly)
+    console.log(`Without spread: ${time1}ms, Optimized: ${time2}ms`)
 
-    // In most cases, the optimized version should perform better or equal
+    // Both versions should perform similarly since they use the corrected approach
     expect(time2).toBeLessThanOrEqual(time1 + 5) // Allow 5ms tolerance
   })
 })
