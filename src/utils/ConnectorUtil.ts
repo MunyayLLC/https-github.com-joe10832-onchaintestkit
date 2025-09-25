@@ -27,13 +27,13 @@ export function sortConnectorsByExplorerWallet(
 }
 
 /**
- * Example function that demonstrates the unnecessary spread operation
- * This is the problematic pattern that needs to be fixed
+ * Example function that demonstrates the corrected approach
+ * This function avoids the unnecessary spread operation
  */
-export function sortConnectorsWithUnnecessarySpread(
+export function sortConnectorsWithoutUnnecessarySpread(
   connectors: Connector[],
 ): Connector[] {
-  // FIXED: Removed unnecessary spread operation since sortConnectorsByExplorerWallet already creates a copy
+  // No unnecessary spread operation; sortConnectorsByExplorerWallet already creates a copy
   const sorted = sortConnectorsByExplorerWallet(connectors)
   return sorted
 }
