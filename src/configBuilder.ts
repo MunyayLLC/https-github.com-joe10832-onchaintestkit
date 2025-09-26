@@ -1,12 +1,8 @@
 import { NodeConfig } from "./node/types"
 import { WalletFixtureOptions } from "./types"
-import {
-  BaseActionType,
-  BaseWalletConfig,
-  WalletSetupContext,
-} from "./wallets/BaseWallet"
+import { BaseWalletConfig, WalletSetupContext } from "./wallets/BaseWallet"
 import { CoinbaseSpecificActionType, CoinbaseWallet } from "./wallets/Coinbase"
-import { MetaMask, MetaMaskSpecificActionType } from "./wallets/MetaMask"
+import { MetaMask } from "./wallets/MetaMask"
 import { PhantomWallet } from "./wallets/Phantom"
 /**
  * Configuration builder for E2E testing with different wallet types.
@@ -130,10 +126,12 @@ abstract class BaseWalletBuilder<T extends WalletType> {
   }: { seedPhrase: string; password?: string; username?: string }) {
     this.config.password = password
     this.chainSetup(async wallet => {
-      await wallet.handleAction(BaseActionType.IMPORT_WALLET_FROM_SEED, {
+      // Using new string-based action types
+      await wallet.handleAction("connect", {
         seedPhrase,
         password,
         username,
+        shouldApprove: true,
       })
     })
     return this
@@ -154,11 +152,13 @@ abstract class BaseWalletBuilder<T extends WalletType> {
   }: { privateKey: string; password?: string; chain?: string; name?: string }) {
     this.config.password = password
     this.chainSetup(async wallet => {
-      await wallet.handleAction(BaseActionType.IMPORT_WALLET_FROM_PRIVATE_KEY, {
+      // Using new string-based action types
+      await wallet.handleAction("connect", {
         privateKey,
         password,
         chain,
         name,
+        shouldApprove: true,
       })
     })
     return this
@@ -210,15 +210,15 @@ class MetaMaskConfigBuilder extends BaseWalletBuilder<MetaMask> {
       console.log(`Adding network with RPC URL: ${network.rpcUrl}`)
 
       // Add the network with the possibly modified URL
-      await wallet.handleAction(MetaMaskSpecificActionType.ADD_NETWORK, {
-        network,
-        isTestnet: isTestNetwork(network),
+      await wallet.handleAction("addNetwork", {
+        networkConfig: network,
+        shouldApprove: true,
       })
 
       // Switch to the network
-      await wallet.handleAction(BaseActionType.SWITCH_NETWORK, {
-        networkName: network.name,
-        isTestnet: isTestNetwork(network),
+      await wallet.handleAction("switchNetwork", {
+        chainId: network.chainId,
+        shouldApprove: true,
       })
     })
     return this
