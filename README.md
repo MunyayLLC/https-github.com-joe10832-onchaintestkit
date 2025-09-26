@@ -201,12 +201,79 @@ const config = configure()
 - `withNetwork()`: Configure network settings
 - `withCustomSetup()`: Add custom setup steps
 
+## Copilot Setup Steps
+
+For AI coding agents and automated development workflows, this project includes automated setup steps that ensure your development environment is properly configured.
+
+### Quick Setup Commands
+
+```bash
+# Quick setup (recommended)
+npm run copilot:setup
+
+# Full setup with validation
+npm run copilot:full-setup
+
+# Validation only
+npm run copilot:validate
+```
+
+### Manual Setup (Essential Commands)
+
+Run these commands in order for manual setup:
+
+```bash
+# 1. Install dependencies (required first)
+npm install
+
+# 2. Build the project (required before testing)  
+npm run build
+
+# 3. Run linter (fix issues before committing)
+npm run lint
+npm run lint:fix  # Auto-fix issues
+
+# 4. Format code
+npm run format
+
+# 5. Run tests
+npm run test
+
+# 6. Prepare wallet extensions
+npm run prepare-metamask    # ✅ Works correctly
+npm run prepare-coinbase    # ⚠️  Currently broken (known issue)
+npm run prepare-phantom     # ⚠️  Currently broken (known issue)
+```
+
+### GitHub Actions Integration
+
+The project includes automated workflows for continuous integration:
+
+- **`.github/workflows/copilot-setup.yml`** - Automated setup validation
+- **`.github/workflows/development.yml`** - Development workflow with code quality checks
+- **`.github/workflows/manual-setup-test.yml`** - Manual testing workflow
+
+### Setup Scripts
+
+- **`scripts/quick-setup.sh`** - Runs essential setup commands in the correct order
+- **`scripts/validate-setup.sh`** - Comprehensive validation of the development environment
+
+### For AI Coding Agents
+
+See these instruction files for detailed guidance:
+- **`.github/copilot-instructions.md`** - GitHub Copilot instructions
+- **`.github/instructions/`** - Specialized instruction files
+- **`AGENTS.md`** - General AI agent instructions  
+- **`CLAUDE.md`** - Claude-specific instructions
+- **`GEMINI.md`** - Gemini-specific instructions
+
 ## Development
 
-- Run `yarn` to install dependencies
-- Run `yarn build` to build the project
-- Run `yarn format` to format code
-- Run `yarn lint` to check for linting issues
+- Run `npm install` to install dependencies
+- Run `npm run build` to build the project
+- Run `npm run format` to format code
+- Run `npm run lint` to check for linting issues
+- Run `npm run copilot:setup` for automated setup
 
 ## Contributing
 
