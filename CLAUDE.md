@@ -2,6 +2,52 @@
 
 This document provides specific instructions for Claude when working on the Onchain Test Kit project. For general project context, also refer to AGENTS.md and .github/copilot-instructions.md.
 
+## Quick Setup for Claude
+
+### Initial Configuration Steps
+1. **Load project context**: Familiarize yourself with the repository structure and existing patterns
+2. **Review dependencies**: Understand the TypeScript, Playwright, and Viem ecosystem
+3. **Study wallet patterns**: Examine existing wallet implementations for consistency
+4. **Test setup**: Verify you can run the build and test pipeline
+
+### Claude's Optimal Usage Workflow
+```typescript
+// 1. Analyze requirements thoroughly
+// Example: Adding a new wallet action for token swaps
+
+// 2. Research existing patterns
+// Check how similar actions are implemented across wallets
+// Review test patterns for comprehensive coverage
+
+// 3. Plan implementation
+interface SwapActionOptions {
+  shouldApprove: boolean;
+  tokenIn: string;
+  tokenOut: string;
+  amount: string;
+  slippage?: string;
+}
+
+// 4. Implement with error handling
+async handleSwapAction(options: SwapActionOptions): Promise<void> {
+  try {
+    const popup = await this.waitForPopup();
+    // Handle swap-specific UI interactions
+    await popup.getByTestId('swap-confirm').click();
+  } catch (error) {
+    throw new WalletActionError('Swap action failed', error);
+  }
+}
+
+// 5. Add comprehensive tests
+test('token swap approval flow', async ({ page, metamask }) => {
+  // Test happy path
+  // Test rejection path  
+  // Test error conditions
+  // Test with different token pairs
+});
+```
+
 ## Claude-Specific Strengths and Focus Areas
 
 ### Leverage Claude's Capabilities
