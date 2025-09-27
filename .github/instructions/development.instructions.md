@@ -52,10 +52,10 @@ npm run prepare-phantom
 ```typescript
 // Always use the fluent builder pattern for configuration
 const config = configure()
+  .withLocalNode() // Optional fork mode - must come first if used
   .withWallet() // MetaMask, Coinbase, or Phantom
   .withCredentials() // Seed phrase or private key
   .withNetwork() // Chain configuration
-  .withLocalNode() // Optional fork mode
   .build();
 ```
 
@@ -124,11 +124,11 @@ test('descriptive test name', async ({ page, wallet, node }) => {
 ```typescript
 // Use local node for fast iteration
 const config = configure()
-  .withMetaMask()
   .withLocalNode({
     accounts: 5,
     balance: '100000000000000000000', // 100 ETH
   })
+  .withMetaMask()
   .build();
 ```
 
@@ -136,12 +136,12 @@ const config = configure()
 ```typescript
 // Use specific block numbers for reproducible tests
 const config = configure()
-  .withMetaMask()
   .withLocalNode({
     fork: 'https://eth-mainnet.g.alchemy.com/v2/api-key',
     forkBlockNumber: 18500000, // Specific block
     chainId: 1,
   })
+  .withMetaMask()
   .build();
 ```
 

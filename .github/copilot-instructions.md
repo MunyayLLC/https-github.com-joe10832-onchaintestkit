@@ -85,6 +85,11 @@ src/
 ### Fluent Builder API (Core Pattern)
 ```typescript
 const config = configure()
+  .withLocalNode({                   // Local node must come FIRST
+    fork: 'https://eth-mainnet.g.alchemy.com/v2/api-key',
+    forkBlockNumber: 18500000,       // Use specific blocks
+    chainId: 1,
+  })
   .withMetaMask()                    // or .withCoinbase() / .withPhantom()
   .withSeedPhrase({                  // or .withPrivateKey()
     seedPhrase: process.env.E2E_TEST_SEED_PHRASE!,
@@ -95,11 +100,6 @@ const config = configure()
     rpcUrl: 'https://sepolia.base.org',
     chainId: 84532,
     symbol: 'ETH',
-  })
-  .withLocalNode({                   // Optional: fork mode
-    fork: 'https://eth-mainnet.g.alchemy.com/v2/api-key',
-    forkBlockNumber: 18500000,       // Use specific blocks
-    chainId: 1,
   })
   .build();
 ```
@@ -187,7 +187,6 @@ await wallet.handleAction('tokenApproval', {
 ```typescript
 const forkTest = createOnchainTest(
   configure()
-    .withMetaMask()
     .withLocalNode({
       fork: 'https://eth-mainnet.g.alchemy.com/v2/api-key',
       forkBlockNumber: 18500000, // Specific block for reproducibility
@@ -195,6 +194,7 @@ const forkTest = createOnchainTest(
       accounts: 10,
       balance: '100000000000000000000', // 100 ETH
     })
+    .withMetaMask()
     .build()
 );
 ```
