@@ -1,6 +1,69 @@
 # AI Coding Agents Instructions for Onchain Test Kit
 
-This document provides general instructions for AI coding agents working on the Onchain Test Kit project. For agent-specific instructions, see the corresponding files (CLAUDE.md, GEMINI.md, etc.).
+This document provides comprehensive setup instructions and general guidelines for AI coding agents working on the Onchain Test Kit project. For agent-specific instructions, see the corresponding files (CLAUDE.md, GEMINI.md, etc.).
+
+## Quick Agent Setup Guide
+
+### Step 1: Environment Preparation
+```bash
+# Ensure prerequisites are installed
+node --version  # Should be >= 14.0.0 (recommended >= 18.0.0)
+npm --version   # Should be present
+git --version   # Should be present
+
+# Clone and setup repository
+git clone <repository-url>
+cd onchaintestkit
+npm install
+```
+
+### Step 2: Verify Agent Setup
+```bash
+# Test build process
+npm run build
+
+# Verify linting works
+npm run lint
+
+# Run tests to confirm functionality
+npm run test  # Should pass 3 tests in ~800ms
+```
+
+### Step 3: Configure Agent Context
+Choose your agent configuration approach:
+
+#### For GitHub Copilot:
+- Read `.github/copilot-instructions.md` for IDE integration
+- Ensure instruction files are in your workspace
+- Use descriptive naming for better suggestions
+
+#### For Claude AI:
+- Review `CLAUDE.md` for deep analysis patterns
+- Focus on comprehensive planning and edge cases
+- Leverage TypeScript excellence and blockchain complexity
+
+#### For Gemini AI:
+- Check `GEMINI.md` for rapid development workflows
+- Prioritize user experience and performance
+- Use quick iteration and creative solutions
+
+#### For Other Agents:
+- Follow patterns in this document
+- Adapt instructions as needed for your specific agent
+- Maintain consistency with established patterns
+
+### Step 4: Agent-Specific Setup
+```bash
+# Prepare wallet extensions for testing
+npm run prepare-metamask    # ✅ Works correctly
+npm run prepare-coinbase    # ⚠️ Currently broken (known issue)
+npm run prepare-phantom     # ⚠️ Currently broken (known issue)
+
+# Create environment variables file
+cp .env.example .env        # If available
+# OR create .env manually:
+echo 'E2E_TEST_SEED_PHRASE="your test seed phrase here"' > .env
+```
 
 ## Project Overview
 

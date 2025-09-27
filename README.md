@@ -208,6 +208,37 @@ const config = configure()
 - Run `yarn format` to format code
 - Run `yarn lint` to check for linting issues
 
+## GitHub Copilot and AI Agent Setup
+
+This repository includes comprehensive documentation for AI-powered development:
+
+### Quick Setup Guides
+- **[GitHub Copilot Setup](.github/copilot-instructions.md)** - Complete setup guide with troubleshooting and example workflows
+- **[General AI Agents](AGENTS.md)** - Setup instructions for all AI coding agents
+- **[Claude AI Setup](CLAUDE.md)** - Claude-specific setup and optimization
+- **[Gemini AI Setup](GEMINI.md)** - Gemini-specific rapid development workflows
+
+### Specialized Instructions
+- **[Development Setup](.github/instructions/development.instructions.md)** - Development environment and coding standards
+- **[Testing Setup](.github/instructions/testing.instructions.md)** - Comprehensive testing strategies
+- **[Wallet Integration](.github/instructions/wallet-integration.instructions.md)** - Wallet-specific setup and patterns
+
+### Examples and Patterns
+- **[Example Code](example/README.md)** - Practical examples with agent-specific usage guidance
+- **[API Documentation](docs/)** - Detailed configuration and usage documentation
+
+### Quick Start for AI Agents
+```bash
+# 1. Basic setup
+npm install && npm run build && npm run test
+
+# 2. Prepare wallet testing
+npm run prepare-metamask
+export E2E_TEST_SEED_PHRASE="test test test test test test test test test test test junk"
+
+# 3. Choose your agent documentation and start coding!
+```
+
 ## Contributing
 
 Contributions are welcome! Please read our contributing guidelines and submit pull requests to our repository.

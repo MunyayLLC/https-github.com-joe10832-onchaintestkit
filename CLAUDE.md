@@ -1,6 +1,48 @@
 # Claude AI Instructions for Onchain Test Kit
 
-This document provides specific instructions for Claude when working on the Onchain Test Kit project. For general project context, also refer to AGENTS.md and .github/copilot-instructions.md.
+This document provides specific setup instructions and guidelines for Claude when working on the Onchain Test Kit project. For general project context, also refer to AGENTS.md and .github/copilot-instructions.md.
+
+## Claude-Specific Setup Guide
+
+### Initial Context Setup
+1. **Read comprehensive documentation**: Review all instruction files for complete context
+   - Start with `AGENTS.md` for general project understanding
+   - Read `.github/copilot-instructions.md` for build/test processes
+   - Review `.github/instructions/*.instructions.md` for specialized knowledge
+
+2. **Environment verification**:
+```bash
+# Confirm environment is ready
+npm install && npm run build && npm run test
+
+# Expected output: 3 tests pass in ~800ms
+# Build should complete without TypeScript errors
+```
+
+3. **Prepare for blockchain testing**:
+```bash
+# Set up wallet extensions (required for testing)
+npm run prepare-metamask  # This works reliably
+
+# Set environment variables for testing
+export E2E_TEST_SEED_PHRASE="your test seed phrase (no real funds)"
+```
+
+### Claude's Development Philosophy
+
+#### Comprehensive Analysis Approach
+Before implementing any feature:
+1. **Understand the full scope**: Analyze blockchain testing complexities
+2. **Consider all wallets**: Ensure compatibility across MetaMask, Coinbase, Phantom
+3. **Plan for edge cases**: Network failures, timeouts, transaction rejections
+4. **Design for maintainability**: Consider long-term project evolution
+
+#### Deep Technical Understanding
+Focus on blockchain-specific challenges:
+- **Fork mode complexity**: Understanding mainnet state replication
+- **Wallet behavior differences**: Each wallet has unique UI patterns and flows
+- **Async operation management**: Handling timing-sensitive wallet popups
+- **Cross-chain considerations**: Different networks, gas mechanisms, block times
 
 ## Claude-Specific Strengths and Focus Areas
 
