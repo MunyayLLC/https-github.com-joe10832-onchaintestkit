@@ -37,7 +37,7 @@ E2E_TEST_SEED_PHRASE="your test wallet seed phrase"
 
 ```typescript
 // walletConfig/metamaskWalletConfig.ts
-import { configure } from 'e2e/onchainTestKit';
+import { configure } from '@coinbase/onchaintestkit';
 import { baseSepolia } from 'viem/chains';
 
 export const DEFAULT_PASSWORD = 'PASSWORD';
@@ -62,7 +62,7 @@ export const metamaskWalletConfig = configure()
 
 ```typescript
 import { metamaskWalletConfig } from 'e2e/walletConfig/metamaskWalletConfig';
-import { BaseActionType, createOnchainTest } from './onchainTestKit';
+import { BaseActionType, createOnchainTest } from '@coinbase/onchaintestkit';
 
 const test = createOnchainTest(metamaskWalletConfig);
 const { expect } = test;

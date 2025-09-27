@@ -72,7 +72,6 @@ const test = createOnchainTest(
 ```typescript
 const forkTest = createOnchainTest(
   configure()
-    .withMetaMask()
     .withLocalNode({
       fork: 'https://eth-mainnet.g.alchemy.com/v2/api-key',
       forkBlockNumber: 18500000, // Specific block for reproducibility
@@ -80,6 +79,7 @@ const forkTest = createOnchainTest(
       accounts: 10,
       balance: '100000000000000000000', // 100 ETH per account
     })
+    .withMetaMask()
     .build()
 );
 ```
@@ -348,20 +348,20 @@ BASE_RPC_URL="https://mainnet.base.org"
 ```typescript
 export const testConfigs = {
   metamaskLocal: configure()
+    .withLocalNode()
     .withMetaMask()
     .withSeedPhrase({ 
       seedPhrase: process.env.E2E_TEST_SEED_PHRASE!,
       password: 'PASSWORD'
     })
-    .withLocalNode()
     .build(),
     
   metamaskFork: configure()
-    .withMetaMask()
     .withLocalNode({
       fork: process.env.ETHEREUM_RPC_URL!,
       forkBlockNumber: 18500000,
     })
+    .withMetaMask()
     .build(),
 };
 ```
