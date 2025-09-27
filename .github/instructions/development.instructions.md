@@ -2,6 +2,57 @@
 
 This file provides development-specific instructions for AI agents working on the Onchain Test Kit project. For general project context, also refer to AGENTS.md and .github/copilot-instructions.md. For specialized guidance, see testing.instructions.md and wallet-integration.instructions.md.
 
+## Quick Development Setup
+
+### 1. Initial Setup Checklist
+```bash
+# ✅ Prerequisites check
+node --version    # >= 14.0.0 (recommended >= 18.0.0) 
+npm --version     # Should be present
+git --version     # Should be present
+
+# ✅ Repository setup
+git clone <repo-url>
+cd onchaintestkit
+npm install
+
+# ✅ Verify setup works
+npm run build     # Should complete without errors
+npm run test      # Should pass 3 tests (~729ms)
+npm run lint      # Should pass without issues
+```
+
+### 2. Development Environment Ready Check
+```bash
+# ✅ Wallet extension preparation
+npm run prepare-metamask     # Works correctly
+# Note: Coinbase and Phantom currently have known issues
+
+# ✅ Environment variables
+export E2E_TEST_SEED_PHRASE="your test seed phrase here"
+# Never use real funds - test seed phrases only!
+
+# ✅ Ready for development
+npm run build && npm run test  # All green = ready to code!
+```
+
+### 3. Agent-Specific Development Setup
+
+#### For GitHub Copilot:
+- Ensure `.github/copilot-instructions.md` is in workspace
+- Use descriptive function/variable names for better suggestions
+- Follow existing code patterns for consistent completions
+
+#### For Claude AI:
+- Review `CLAUDE.md` for comprehensive analysis patterns
+- Focus on edge cases and detailed implementation planning
+- Leverage TypeScript excellence and blockchain testing complexity
+
+#### For Gemini AI:
+- Check `GEMINI.md` for rapid development workflows  
+- Prioritize quick iteration and user experience
+- Focus on performance optimization and creative solutions
+
 ## Development Environment Setup
 
 ### Prerequisites

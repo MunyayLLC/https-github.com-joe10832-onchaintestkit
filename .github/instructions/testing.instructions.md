@@ -2,6 +2,52 @@
 
 This file provides comprehensive testing guidelines for AI agents working on the Onchain Test Kit project. For general project context, also refer to AGENTS.md and .github/copilot-instructions.md. For specialized guidance, see development.instructions.md and wallet-integration.instructions.md.
 
+## Quick Testing Setup Guide
+
+### 1. Testing Environment Setup
+```bash
+# ✅ Verify project is ready for testing
+npm install && npm run build
+
+# ✅ Prepare wallet extensions for testing
+npm run prepare-metamask  # Required for wallet testing
+# Note: Coinbase/Phantom currently have known zip download issues
+
+# ✅ Set up test environment variables
+export E2E_TEST_SEED_PHRASE="abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about"
+# ☝️ This is the test-only seed phrase - never use for real funds!
+
+# ✅ Verify testing setup
+npm run test  # Should pass 3 tests in ~729ms
+```
+
+### 2. Testing Strategy Overview
+This project uses **end-to-end testing** focused on:
+- **Wallet automation**: Complex wallet interactions handled seamlessly
+- **Fork mode testing**: Real blockchain data for realistic scenarios  
+- **Cross-wallet compatibility**: Testing across MetaMask, Coinbase, Phantom
+- **Type safety**: TypeScript for compile-time verification
+
+### 3. Agent-Specific Testing Setup
+
+#### For Comprehensive Testing (Claude):
+- Focus on edge cases and complex blockchain scenarios
+- Design thorough test coverage strategies
+- Consider multi-chain and cross-wallet compatibility
+- Plan for realistic DeFi testing with fork mode
+
+#### For Rapid Testing (Gemini):
+- Start with simple test cases first
+- Iterate quickly with `npm run test`
+- Focus on common usage patterns
+- Optimize for fast test execution
+
+#### For Continuous Testing (GitHub Copilot):
+- Use test-driven development patterns
+- Let Copilot suggest test completions
+- Follow existing test structures for consistency
+- Add comprehensive assertions
+
 ## Testing Philosophy
 
 ### Core Principles

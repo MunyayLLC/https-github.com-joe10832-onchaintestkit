@@ -1,6 +1,45 @@
 # Gemini AI Instructions for Onchain Test Kit
 
-This document provides specific instructions for Gemini when working on the Onchain Test Kit project. For general project context, also refer to AGENTS.md and .github/copilot-instructions.md.
+This document provides specific setup instructions and guidelines for Gemini when working on the Onchain Test Kit project. For general project context, also refer to AGENTS.md and .github/copilot-instructions.md.
+
+## Gemini-Specific Quick Setup
+
+### Rapid Environment Setup
+```bash
+# Quick setup for immediate development
+git clone <repo-url> && cd onchaintestkit
+npm install && npm run build && npm run test
+
+# Prepare for testing (fast track)
+npm run prepare-metamask  # Only this works currently
+export E2E_TEST_SEED_PHRASE="test seed phrase here"
+```
+
+### Fast Development Workflow
+1. **Quick context absorption**: Scan key files for patterns
+2. **Rapid prototyping**: Start with minimal working implementation
+3. **Iterative improvement**: Build → test → refine cycle
+4. **Performance optimization**: Focus on speed and efficiency
+
+### Gemini's Optimal Development Approach
+
+#### 1. Speed-First Development
+- Start with the simplest solution that works
+- Use existing patterns as templates for new features
+- Prioritize working code over perfect architecture initially
+- Refine and optimize in subsequent iterations
+
+#### 2. User Experience Focus
+- Make APIs intuitive and easy to use
+- Provide clear error messages and helpful debugging
+- Minimize configuration complexity
+- Optimize for common use cases
+
+#### 3. Creative Problem Solving
+- Find innovative approaches to wallet automation challenges
+- Explore efficient testing patterns
+- Create streamlined development workflows
+- Think outside the box for complex scenarios
 
 ## Gemini-Specific Strengths and Development Focus
 
