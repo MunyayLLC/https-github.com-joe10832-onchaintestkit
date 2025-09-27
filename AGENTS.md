@@ -2,6 +2,52 @@
 
 This document provides general instructions for AI coding agents working on the Onchain Test Kit project. For agent-specific instructions, see the corresponding files (CLAUDE.md, GEMINI.md, etc.).
 
+## Getting Started as an AI Agent
+
+### Quick Setup Checklist
+1. **Environment Verification**:
+   ```bash
+   node --version    # Must be >= 14.0.0
+   npm --version     # Verify npm is available
+   ```
+
+2. **Repository Setup**:
+   ```bash
+   npm install       # Install dependencies
+   npm run build     # Verify build works
+   npm run test      # Confirm tests pass (3 tests, ~800ms)
+   ```
+
+3. **Understanding the Codebase**:
+   - Main API: `src/configBuilder.ts` (affects all users)
+   - Test creation: `src/createOnchainTest.ts`
+   - Wallet implementations: `src/wallets/*/index.ts`
+   - CLI tools: `src/cli/*.mjs`
+
+### Agent Workflow Example
+```typescript
+// 1. Understand the user's requirement
+// Example: "Add support for a new wallet action"
+
+// 2. Identify the files to modify
+// - src/wallets/base/types.ts (add action type)
+// - src/wallets/*/index.ts (implement in all wallets)
+// - tests/ (add comprehensive tests)
+
+// 3. Follow existing patterns
+const config = configure()
+  .withMetaMask()
+  .withSeedPhrase({ seedPhrase: "...", password: "..." })
+  .withNetwork({ name: "Base", rpcUrl: "...", chainId: 8453 })
+  .build();
+
+// 4. Validate with tests
+test('new action works correctly', async ({ metamask }) => {
+  await metamask.handleAction('newAction', { shouldApprove: true });
+  // Verify expected behavior
+});
+```
+
 ## Project Overview
 
 The Onchain Test Kit is an end-to-end testing toolkit for blockchain applications, powered by Playwright. It provides comprehensive wallet automation and testing capabilities for DApps with support for MetaMask, Coinbase Wallet, and Phantom wallets.
@@ -98,20 +144,78 @@ npm run prepare-phantom
 
 ## Common Issues and Solutions
 
-### TypeScript Compilation
+### Agent Setup Issues
+
+#### 1. "Cannot find module" or TypeScript errors
+```bash
+# Solution: Ensure all dependencies are installed
+npm install
+npm run build
+
+# Check peer dependencies
+npm ls @playwright/test
+```
+
+#### 2. "Extension not found" during wallet tests
+```bash
+# Solution: Prepare wallet extensions
+npm run prepare-metamask  # ✅ Works
+npm run prepare-coinbase  # ⚠️ Known issue with zip download
+npm run prepare-phantom   # ⚠️ Known issue with zip download
+
+# Workaround: Use MetaMask for testing until other wallets are fixed
+```
+
+#### 3. "Network timeout" or RPC errors
+```bash
+# Solution: Use proper RPC URLs with rate limits
+# For fork mode testing, use paid RPC providers (Alchemy, Infura)
+# Avoid public endpoints for CI/CD pipelines
+```
+
+#### 4. Test flakiness or timing issues
+```typescript
+// Solution: Use proper waiting strategies
+await expect(page.getByTestId('result')).toBeVisible({ timeout: 30000 });
+await wallet.handleAction('connect', { timeout: 45000 });
+```
+
+### Build and Development Issues
+
+#### TypeScript Compilation
 - Ensure `@playwright/test` is available in dependencies
 - Check tsconfig.json includes proper lib configuration for Node.js
 - Use proper typing for Playwright fixtures
 
-### Wallet Extension Issues
+#### Wallet Extension Issues
 - Run preparation scripts to download extensions
 - Verify extension paths in test configuration
 - Check browser compatibility
 
-### Network Configuration
+#### Network Configuration
 - Validate RPC URLs and chain IDs
 - Use proper network configurations from viem
 - Handle rate limiting with paid RPC providers
+
+### Agent-Specific Best Practices
+
+#### For Claude
+- Focus on comprehensive analysis and edge cases
+- Provide detailed explanations for complex blockchain concepts
+- Consider multiple implementation approaches
+- Document reasoning behind architectural decisions
+
+#### For Gemini
+- Emphasize rapid prototyping and iteration
+- Focus on user experience and clear APIs
+- Optimize for performance and reliability
+- Provide practical, actionable solutions
+
+#### For GitHub Copilot
+- Use descriptive function and variable names
+- Write clear comments explaining blockchain-specific logic
+- Follow established patterns consistently
+- Leverage TypeScript types for better suggestions
 
 ## Contributing Guidelines
 

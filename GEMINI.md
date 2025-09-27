@@ -2,6 +2,63 @@
 
 This document provides specific instructions for Gemini when working on the Onchain Test Kit project. For general project context, also refer to AGENTS.md and .github/copilot-instructions.md.
 
+## Quick Setup for Gemini
+
+### Rapid Setup Steps
+1. **Fast environment check**: `npm install && npm run build && npm run test`
+2. **Pattern recognition**: Quickly scan existing wallet implementations
+3. **Identify optimization opportunities**: Look for performance improvements
+4. **Prototype solutions**: Start with minimal working examples
+
+### Gemini's Optimized Workflow
+```typescript
+// 1. Quick problem identification
+// Example: Users need faster wallet connection testing
+
+// 2. Rapid prototype solution
+const quickConfig = configure()
+  .withMetaMask()
+  .withDefaultTestConfig()  // New helper method
+  .build();
+
+// 3. Implement with focus on UX
+class QuickStartHelper {
+  static createTestConfig(walletType: 'metamask' | 'coinbase' | 'phantom') {
+    return configure()
+      .withWallet(walletType)
+      .withTestCredentials()
+      .withDefaultNetwork()
+      .build();
+  }
+}
+
+// 4. Add efficient testing patterns
+const test = createOnchainTest(QuickStartHelper.createTestConfig('metamask'));
+
+// 5. Optimize for speed and reliability
+test('quick connection test', async ({ page, wallet }) => {
+  await page.goto('http://localhost:3000', { waitUntil: 'domcontentloaded' });
+  await wallet.handleAction('connect', { shouldApprove: true, timeout: 10000 });
+  await expect(page.locator('[data-testid="connected"]')).toBeVisible();
+});
+```
+
+### Gemini's Performance Focus
+```typescript
+// Example: Optimizing wallet extension caching
+class ExtensionCache {
+  private static cache = new Map<string, string>();
+  
+  static async getExtensionPath(walletType: string): Promise<string> {
+    if (!this.cache.has(walletType)) {
+      const path = await this.prepareExtension(walletType);
+      this.cache.set(walletType, path);
+    }
+    return this.cache.get(walletType)!;
+  }
+}
+```
+
 ## Gemini-Specific Strengths and Development Focus
 
 ### Leverage Gemini's Capabilities

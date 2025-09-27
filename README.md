@@ -208,6 +208,33 @@ const config = configure()
 - Run `yarn format` to format code
 - Run `yarn lint` to check for linting issues
 
+### AI Agent and Copilot Setup
+
+This repository includes comprehensive documentation for AI-powered development:
+
+#### Documentation Structure
+- **[`.github/copilot-instructions.md`](.github/copilot-instructions.md)**: Main GitHub Copilot configuration and setup steps
+- **[`AGENTS.md`](AGENTS.md)**: General instructions for all AI coding agents
+- **[`CLAUDE.md`](CLAUDE.md)**: Claude-specific instructions and focus areas
+- **[`GEMINI.md`](GEMINI.md)**: Gemini-specific strengths and workflows
+
+#### Specialized Instructions
+- **[`development.instructions.md`](.github/instructions/development.instructions.md)**: Development environment and architecture guidelines
+- **[`testing.instructions.md`](.github/instructions/testing.instructions.md)**: Comprehensive testing strategies and patterns
+- **[`wallet-integration.instructions.md`](.github/instructions/wallet-integration.instructions.md)**: Wallet-specific implementation guidance
+
+#### Quick Start for AI Agents
+1. **Setup**: `npm install && npm run build && npm run test`
+2. **Context**: Review `.github/copilot-instructions.md` for project overview
+3. **Specialization**: Check agent-specific files (CLAUDE.md, GEMINI.md) for focused guidance
+4. **Deep Dive**: Use specialized instruction files for detailed technical guidance
+
 ## Contributing
 
 Contributions are welcome! Please read our contributing guidelines and submit pull requests to our repository.
+
+### For Human Contributors
+See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed contribution guidelines.
+
+### For AI Agents
+Start with [AGENTS.md](AGENTS.md) for general guidelines, then review your agent-specific documentation.
