@@ -49,7 +49,9 @@ For advanced AI assistance, review the agent-specific documentation:
 1. **Set required environment variables**:
    ```bash
    # Create .env file (never commit this)
-   echo "E2E_TEST_SEED_PHRASE=your-test-seed-phrase-here" > .env
+   cp .env.example .env
+   # Edit .env to add your E2E_TEST_SEED_PHRASE and any other secrets
+   nano .env   # Or use your preferred editor (vim, code, etc.)
    ```
 
 2. **Prepare wallet extensions** (required for testing):
