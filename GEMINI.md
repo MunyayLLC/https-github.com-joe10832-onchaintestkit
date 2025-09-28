@@ -46,9 +46,13 @@ test('quick connection test', async ({ page, wallet }) => {
 ### Gemini's Performance Focus
 ```typescript
 // Example: Optimizing wallet extension caching
+import LRUCache from 'lru-cache';
+
 class ExtensionCache {
-  private static cache = new Map<string, string>();
-  
+  private static cache = new LRUCache<string, string>({
+    max: 50, // Maximum number of wallet types to cache
+    ttl: 1000 * 60 * 10, // 10 minutes TTL for each entry
+  });
   static async getExtensionPath(walletType: string): Promise<string> {
     if (!this.cache.has(walletType)) {
       const path = await this.prepareExtension(walletType);
