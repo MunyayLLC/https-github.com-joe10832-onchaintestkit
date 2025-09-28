@@ -14,7 +14,7 @@ Thank you for your interest in contributing to Onchain Test Kit! This document p
 
 1. **Fork and clone the repository**
    ```bash
-   git clone https://github.com/your-username/onchaintestkit.git
+   git clone <repository-url>
    cd onchaintestkit
    ```
 
