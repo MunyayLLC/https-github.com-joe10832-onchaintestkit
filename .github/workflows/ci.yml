@@ -1,0 +1,46 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    environment: CI
+
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@v2
+        with:
+          egress-policy: audit
+
+      - name: Checkout Source
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Enable Corepack and Enforce Yarn Version
+        run: |
+          corepack enable
+          yarn set version 4.9.2
+
+      - name: Install Dependencies
+        run: yarn install
+
+      - name: Run Linter
+        run: yarn lint
+
+      - name: Build Project
+        run: yarn build
+
+      - name: Run Tests
+        run: yarn test
