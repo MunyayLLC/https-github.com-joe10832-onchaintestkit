@@ -31,6 +31,7 @@ npm run test
 
 ### GitHub Copilot Configuration
 This repository includes specialized instructions for different AI agents:
+- **Agent configuration overview**: See `.github/agents/README.md` for AI agent setup
 - **General agents**: See `AGENTS.md` for common patterns
 - **Claude-specific**: See `CLAUDE.md` for Claude optimizations  
 - **Gemini-specific**: See `GEMINI.md` for Gemini focus areas
@@ -57,7 +58,7 @@ BASE_RPC_URL="https://mainnet.base.org"
 ## Agent Setup and Configuration
 
 ### Understanding the Agent Architecture
-This repository provides specialized documentation for different AI coding agents:
+This repository provides specialized documentation for different AI coding agents. For a comprehensive overview of all agent configurations, see [`.github/agents/README.md`](.github/agents/README.md).
 
 #### 1. General Agent Instructions (`AGENTS.md`)
 - **Purpose**: Common patterns and guidelines for all AI agents
@@ -89,6 +90,11 @@ This repository provides specialized documentation for different AI coding agent
 - **`development.instructions.md`**: Development environment and coding standards
 - **`testing.instructions.md`**: Comprehensive testing strategies and patterns
 - **`wallet-integration.instructions.md`**: Wallet-specific implementation guidance
+
+#### 6. Agent Configuration Hub (`.github/agents/`)
+- **`README.md`**: Centralized configuration and guidelines for all AI coding agents
+- **Purpose**: Provides quick reference for agents to understand project structure and workflows
+- **Use Case**: Starting point for agents to discover all available documentation
 
 ### Setting Up Your Agent Workflow
 
