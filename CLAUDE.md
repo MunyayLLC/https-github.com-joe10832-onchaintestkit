@@ -25,7 +25,10 @@ npm install && npm run build && npm run test
 npm run prepare-metamask  # This works reliably
 
 # Set environment variables for testing
-export E2E_TEST_SEED_PHRASE="your test seed phrase (no real funds)"
+cp .env.example .env
+# Edit .env to add your test seed phrase and configure testing
+nano .env   # Or use your preferred editor (vim, code, etc.)
+# Remember: Never use real funds - test phrases only!
 ```
 
 ### Claude's Development Philosophy

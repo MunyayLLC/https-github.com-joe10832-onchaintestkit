@@ -38,6 +38,13 @@ This repository includes specialized instructions for different AI agents:
 
 ### Environment Variables Setup
 Create a `.env` file with required test credentials:
+```bash
+cp .env.example .env
+# Edit .env to add your E2E_TEST_SEED_PHRASE and any other secrets
+nano .env   # Or use your preferred editor (vim, code, etc.)
+```
+
+The `.env` file should contain:
 ```env
 # Test wallet seed phrase (NEVER use real funds)
 E2E_TEST_SEED_PHRASE="your test seed phrase here"

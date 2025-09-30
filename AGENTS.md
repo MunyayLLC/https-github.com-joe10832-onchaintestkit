@@ -60,9 +60,9 @@ npm run prepare-coinbase    # ⚠️ Currently broken (known issue)
 npm run prepare-phantom     # ⚠️ Currently broken (known issue)
 
 # Create environment variables file
-cp .env.example .env        # If available
-# OR create .env manually:
-echo 'E2E_TEST_SEED_PHRASE="your test seed phrase here"' > .env
+cp .env.example .env
+# Edit .env to add your E2E_TEST_SEED_PHRASE and any other secrets
+nano .env   # Or use your preferred editor (vim, code, etc.)
 ```
 
 ## Project Overview

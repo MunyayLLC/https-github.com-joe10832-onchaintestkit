@@ -17,7 +17,10 @@ npm run build
 npm run prepare-metamask  # Required for testing
 
 # Set up environment variables
-export E2E_TEST_SEED_PHRASE="test test test test test test test test test test test junk"
+cp .env.example .env
+# Edit .env to add your test seed phrase:
+# E2E_TEST_SEED_PHRASE="test test test test test test test test test test test junk"
+nano .env   # Or use your preferred editor (vim, code, etc.)
 ```
 
 ### Running the Examples
@@ -111,7 +114,10 @@ ls -la ./e2e/extensions/metamask/
 ### Environment Variables Missing
 ```bash
 # Set required environment variables
-export E2E_TEST_SEED_PHRASE="your test seed phrase"
+cp .env.example .env
+# Edit .env to add your test seed phrase:
+# E2E_TEST_SEED_PHRASE="your test seed phrase"
+nano .env   # Or use your preferred editor (vim, code, etc.)
 
 # Never use real funds - test phrases only!
 ```

@@ -29,6 +29,13 @@ Make sure you have foundry set up too
 
 2. Set up environment variables:
 
+```bash
+cp .env.example .env
+# Edit .env to add your E2E_TEST_SEED_PHRASE and any other secrets
+nano .env   # Or use your preferred editor (vim, code, etc.)
+```
+
+Your `.env` file should contain:
 ```env
 E2E_TEST_SEED_PHRASE="your test wallet seed phrase"
 ```
