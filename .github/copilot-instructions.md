@@ -38,9 +38,16 @@ This repository includes specialized instructions for different AI agents:
 
 ### Environment Variables Setup
 Create a `.env` file with required test credentials:
+```bash
+cp .env.example .env
+# Edit .env to add your E2E_TEST_SEED_PHRASE and any other secrets
+nano .env   # Or use your preferred editor (vim, code, etc.)
+```
+
+The `.env.example` file includes:
 ```env
 # Test wallet seed phrase (NEVER use real funds)
-E2E_TEST_SEED_PHRASE="your test seed phrase here"
+E2E_TEST_SEED_PHRASE="your-test-seed-phrase-here"
 
 # Optional: RPC URLs for fork mode testing
 ETHEREUM_RPC_URL="https://eth-mainnet.g.alchemy.com/v2/your-api-key"
