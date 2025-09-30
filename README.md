@@ -215,6 +215,7 @@ const config = configure()
 This repository includes comprehensive documentation for AI-powered development:
 
 ### Quick Setup Guides
+- **[AI Agent Configuration Hub](.github/agents/README.md)** - Centralized guide for all AI coding agents
 - **[GitHub Copilot Setup](.github/copilot-instructions.md)** - Complete setup guide with troubleshooting and example workflows
 - **[General AI Agents](AGENTS.md)** - Setup instructions for all AI coding agents
 - **[Claude AI Setup](CLAUDE.md)** - Claude-specific setup and optimization
