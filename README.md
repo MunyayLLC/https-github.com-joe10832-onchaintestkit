@@ -29,8 +29,10 @@ Make sure you have foundry set up too
 
 2. Set up environment variables:
 
-```env
-E2E_TEST_SEED_PHRASE="your test wallet seed phrase"
+```bash
+cp .env.example .env
+# Edit .env to add your E2E_TEST_SEED_PHRASE and any other secrets
+nano .env   # Or use your preferred editor (vim, code, etc.)
 ```
 
 3. Create your wallet configuration:
@@ -234,7 +236,9 @@ npm install && npm run build && npm run test
 
 # 2. Prepare wallet testing
 npm run prepare-metamask
-export E2E_TEST_SEED_PHRASE="test test test test test test test test test test test junk"
+cp .env.example .env
+# Edit .env to add your E2E_TEST_SEED_PHRASE and any other secrets
+nano .env   # Or use your preferred editor (vim, code, etc.)
 
 # 3. Choose your agent documentation and start coding!
 ```

@@ -15,7 +15,9 @@ npm run prepare-phantom      # ⚠️ Known issue: zip returns invalid files
 ls -la ./e2e/extensions/metamask/    # Should contain extension files
 
 # ✅ Set up test wallet credentials
-export E2E_TEST_SEED_PHRASE="test seed phrase for testing only"
+cp .env.example .env
+# Edit .env to add your E2E_TEST_SEED_PHRASE and any other secrets
+nano .env   # Or use your preferred editor (vim, code, etc.)
 # Never use real funds or real seed phrases!
 ```
 
