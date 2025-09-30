@@ -14,7 +14,10 @@ npm run prepare-metamask  # Required for wallet testing
 # Note: Coinbase/Phantom currently have known zip download issues
 
 # ✅ Set up test environment variables
-export E2E_TEST_SEED_PHRASE="abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about"
+cp .env.example .env
+# Edit .env to add your test seed phrase (use a safe test phrase):
+# E2E_TEST_SEED_PHRASE="abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about"
+nano .env   # Or use your preferred editor (vim, code, etc.)
 # ☝️ This is the test-only seed phrase - never use for real funds!
 
 # ✅ Verify testing setup

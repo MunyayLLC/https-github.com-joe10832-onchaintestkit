@@ -29,7 +29,9 @@ npm run prepare-metamask     # Works correctly
 # Note: Coinbase and Phantom currently have known issues
 
 # ✅ Environment variables
-export E2E_TEST_SEED_PHRASE="your test seed phrase here"
+cp .env.example .env
+# Edit .env to add your E2E_TEST_SEED_PHRASE and any other secrets
+nano .env   # Or use your preferred editor (vim, code, etc.)
 # Never use real funds - test seed phrases only!
 
 # ✅ Ready for development

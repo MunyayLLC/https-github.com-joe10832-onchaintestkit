@@ -12,7 +12,9 @@ npm install && npm run build && npm run test
 
 # Prepare for testing (fast track)
 npm run prepare-metamask  # Only this works currently
-export E2E_TEST_SEED_PHRASE="test seed phrase here"
+cp .env.example .env
+# Edit .env to add your test seed phrase and secrets quickly
+nano .env   # Or use code/vim for faster editing
 ```
 
 ### Fast Development Workflow
