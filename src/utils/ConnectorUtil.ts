@@ -28,12 +28,14 @@ export function sortConnectorsByExplorerWallet(
 
 /**
  * Example function that demonstrates the corrected approach
- * This function avoids the unnecessary spread operation
+ * This function shows the proper way to use sortConnectorsByExplorerWallet without
+ * adding unnecessary spread operations, since the base function already creates a copy internally
  */
 export function sortConnectorsWithoutUnnecessarySpread(
   connectors: Connector[],
 ): Connector[] {
-  // No unnecessary spread operation; sortConnectorsByExplorerWallet already creates a copy
+  // Correct approach: call sortConnectorsByExplorerWallet directly
+  // No additional spread operation needed since the function already creates a copy
   const sorted = sortConnectorsByExplorerWallet(connectors)
   return sorted
 }
