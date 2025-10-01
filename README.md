@@ -29,15 +29,17 @@ Make sure you have foundry set up too
 
 2. Set up environment variables:
 
-```env
-E2E_TEST_SEED_PHRASE="your test wallet seed phrase"
+```bash
+cp .env.example .env
+# Edit .env to add your E2E_TEST_SEED_PHRASE and any other secrets
+nano .env   # Or use your preferred editor (vim, code, etc.)
 ```
 
 3. Create your wallet configuration:
 
 ```typescript
 // walletConfig/metamaskWalletConfig.ts
-import { configure } from 'e2e/onchainTestKit';
+import { configure } from '@coinbase/onchaintestkit';
 import { baseSepolia } from 'viem/chains';
 
 export const DEFAULT_PASSWORD = 'PASSWORD';
@@ -62,7 +64,7 @@ export const metamaskWalletConfig = configure()
 
 ```typescript
 import { metamaskWalletConfig } from 'e2e/walletConfig/metamaskWalletConfig';
-import { BaseActionType, createOnchainTest } from './onchainTestKit';
+import { BaseActionType, createOnchainTest } from '@coinbase/onchaintestkit';
 
 const test = createOnchainTest(metamaskWalletConfig);
 const { expect } = test;
@@ -207,6 +209,40 @@ const config = configure()
 - Run `yarn build` to build the project
 - Run `yarn format` to format code
 - Run `yarn lint` to check for linting issues
+
+## GitHub Copilot and AI Agent Setup
+
+This repository includes comprehensive documentation for AI-powered development:
+
+### Quick Setup Guides
+- **[AI Agent Configuration Hub](.github/agents/README.md)** - Centralized guide for all AI coding agents
+- **[GitHub Copilot Setup](.github/copilot-instructions.md)** - Complete setup guide with troubleshooting and example workflows
+- **[General AI Agents](AGENTS.md)** - Setup instructions for all AI coding agents
+- **[Claude AI Setup](CLAUDE.md)** - Claude-specific setup and optimization
+- **[Gemini AI Setup](GEMINI.md)** - Gemini-specific rapid development workflows
+
+### Specialized Instructions
+- **[Development Setup](.github/instructions/development.instructions.md)** - Development environment and coding standards
+- **[Testing Setup](.github/instructions/testing.instructions.md)** - Comprehensive testing strategies
+- **[Wallet Integration](.github/instructions/wallet-integration.instructions.md)** - Wallet-specific setup and patterns
+
+### Examples and Patterns
+- **[Example Code](example/README.md)** - Practical examples with agent-specific usage guidance
+- **[API Documentation](docs/)** - Detailed configuration and usage documentation
+
+### Quick Start for AI Agents
+```bash
+# 1. Basic setup
+npm install && npm run build && npm run test
+
+# 2. Prepare wallet testing
+npm run prepare-metamask
+cp .env.example .env
+# Edit .env to add your E2E_TEST_SEED_PHRASE and any other secrets
+nano .env   # Or use your preferred editor (vim, code, etc.)
+
+# 3. Choose your agent documentation and start coding!
+```
 
 ## Contributing
 

@@ -328,7 +328,7 @@ export class ConfigBuilder {
    * Build the final configuration
    * @returns Configuration object ready to be used with createOnchainTest
    */
-  build(): { options: WalletFixtureOptions } {
+  build(): WalletFixtureOptions {
     if (!this.config.type) {
       throw new Error("Wallet type must be specified")
     }
@@ -337,9 +337,7 @@ export class ConfigBuilder {
       [this.config.type]: this.config,
     }
 
-    return {
-      options: { wallets } as WalletFixtureOptions,
-    }
+    return { wallets, nodeConfig: this.nodeConfig } as WalletFixtureOptions
   }
 }
 

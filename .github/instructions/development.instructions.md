@@ -2,6 +2,59 @@
 
 This file provides development-specific instructions for AI agents working on the Onchain Test Kit project. For general project context, also refer to AGENTS.md and .github/copilot-instructions.md. For specialized guidance, see testing.instructions.md and wallet-integration.instructions.md.
 
+## Quick Development Setup
+
+### 1. Initial Setup Checklist
+```bash
+# ✅ Prerequisites check
+node --version    # >= 14.0.0 (recommended >= 18.0.0) 
+npm --version     # Should be present
+git --version     # Should be present
+
+# ✅ Repository setup
+git clone <repo-url>
+cd onchaintestkit
+npm install
+
+# ✅ Verify setup works
+npm run build     # Should complete without errors
+npm run test      # Should pass 3 tests (~729ms)
+npm run lint      # Should pass without issues
+```
+
+### 2. Development Environment Ready Check
+```bash
+# ✅ Wallet extension preparation
+npm run prepare-metamask     # Works correctly
+# Note: Coinbase and Phantom currently have known issues
+
+# ✅ Environment variables
+cp .env.example .env
+# Edit .env to add your E2E_TEST_SEED_PHRASE and any other secrets
+nano .env   # Or use your preferred editor (vim, code, etc.)
+# Never use real funds - test seed phrases only!
+
+# ✅ Ready for development
+npm run build && npm run test  # All green = ready to code!
+```
+
+### 3. Agent-Specific Development Setup
+
+#### For GitHub Copilot:
+- Ensure `.github/copilot-instructions.md` is in workspace
+- Use descriptive function/variable names for better suggestions
+- Follow existing code patterns for consistent completions
+
+#### For Claude AI:
+- Review `CLAUDE.md` for comprehensive analysis patterns
+- Focus on edge cases and detailed implementation planning
+- Leverage TypeScript excellence and blockchain testing complexity
+
+#### For Gemini AI:
+- Check `GEMINI.md` for rapid development workflows  
+- Prioritize quick iteration and user experience
+- Focus on performance optimization and creative solutions
+
 ## Development Environment Setup
 
 ### Prerequisites
@@ -52,10 +105,10 @@ npm run prepare-phantom
 ```typescript
 // Always use the fluent builder pattern for configuration
 const config = configure()
+  .withLocalNode() // Optional fork mode - must come first if used
   .withWallet() // MetaMask, Coinbase, or Phantom
   .withCredentials() // Seed phrase or private key
   .withNetwork() // Chain configuration
-  .withLocalNode() // Optional fork mode
   .build();
 ```
 
@@ -124,11 +177,11 @@ test('descriptive test name', async ({ page, wallet, node }) => {
 ```typescript
 // Use local node for fast iteration
 const config = configure()
-  .withMetaMask()
   .withLocalNode({
     accounts: 5,
     balance: '100000000000000000000', // 100 ETH
   })
+  .withMetaMask()
   .build();
 ```
 
@@ -136,12 +189,12 @@ const config = configure()
 ```typescript
 // Use specific block numbers for reproducible tests
 const config = configure()
-  .withMetaMask()
   .withLocalNode({
     fork: 'https://eth-mainnet.g.alchemy.com/v2/api-key',
     forkBlockNumber: 18500000, // Specific block
     chainId: 1,
   })
+  .withMetaMask()
   .build();
 ```
 
