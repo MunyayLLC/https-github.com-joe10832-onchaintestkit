@@ -2,6 +2,73 @@
 
 This file provides specific instructions for AI agents working on wallet integrations in the Onchain Test Kit project. For general project context, also refer to AGENTS.md and .github/copilot-instructions.md. For specialized guidance, see development.instructions.md and testing.instructions.md.
 
+## Quick Wallet Integration Setup
+
+### 1. Wallet Testing Environment Setup
+```bash
+# ✅ Prepare wallet extensions
+npm run prepare-metamask     # ✅ Works correctly
+npm run prepare-coinbase     # ⚠️ Known issue: zip returns invalid files
+npm run prepare-phantom      # ⚠️ Known issue: zip returns invalid files
+
+# ✅ Verify wallet extension locations  
+ls -la ./e2e/extensions/metamask/    # Should contain extension files
+
+# ✅ Set up test wallet credentials
+cp .env.example .env
+# Edit .env to add your E2E_TEST_SEED_PHRASE and any other secrets
+nano .env   # Or use your preferred editor (vim, code, etc.)
+# Never use real funds or real seed phrases!
+```
+
+### 2. Current Wallet Status
+- **MetaMask**: ✅ Fully working and tested
+- **Coinbase Wallet**: ⚠️ Extension download broken (upstream issue)
+- **Phantom Wallet**: ⚠️ Extension download broken (upstream issue)
+
+### 3. Agent-Specific Wallet Integration Approaches
+
+#### For Systematic Integration (Claude):
+- Analyze wallet-specific behavior patterns thoroughly
+- Consider cross-wallet compatibility from the start  
+- Plan comprehensive edge case handling
+- Design robust error recovery mechanisms
+
+#### For Rapid Integration (Gemini):
+- Start with MetaMask (known working) as template
+- Prototype wallet actions quickly
+- Focus on common use cases first
+- Optimize for fast development cycles
+
+#### For Pattern-Based Integration (GitHub Copilot):
+- Follow existing wallet implementation patterns
+- Use established selector strategies
+- Maintain consistent action interfaces
+- Leverage code completion for common patterns
+
+### 4. Quick Wallet Testing Example
+```typescript
+import { createOnchainTest, configure } from '@coinbase/onchaintestkit';
+
+// Quick setup for MetaMask testing (works reliably)
+const test = createOnchainTest(
+  configure()
+    .withMetaMask()
+    .withSeedPhrase({
+      seedPhrase: process.env.E2E_TEST_SEED_PHRASE!,
+      password: 'PASSWORD'
+    })
+    .build()
+);
+
+test('basic wallet connection', async ({ page, metamask }) => {
+  await page.goto('http://localhost:3000');
+  await page.getByTestId('connect-button').click();
+  await metamask.handleAction('connect', { shouldApprove: true });
+  await expect(page.getByTestId('wallet-connected')).toBeVisible();
+});
+```
+
 ## Supported Wallets Overview
 
 ### Current Wallet Support

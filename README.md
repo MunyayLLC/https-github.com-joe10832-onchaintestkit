@@ -29,15 +29,17 @@ Make sure you have foundry set up too
 
 2. Set up environment variables:
 
-```env
-E2E_TEST_SEED_PHRASE="your test wallet seed phrase"
+```bash
+cp .env.example .env
+# Edit .env to add your E2E_TEST_SEED_PHRASE and any other secrets
+nano .env   # Or use your preferred editor (vim, code, etc.)
 ```
 
 3. Create your wallet configuration:
 
 ```typescript
 // walletConfig/metamaskWalletConfig.ts
-import { configure } from 'e2e/onchainTestKit';
+import { configure } from '@coinbase/onchaintestkit';
 import { baseSepolia } from 'viem/chains';
 
 export const DEFAULT_PASSWORD = 'PASSWORD';
@@ -62,7 +64,7 @@ export const metamaskWalletConfig = configure()
 
 ```typescript
 import { metamaskWalletConfig } from 'e2e/walletConfig/metamaskWalletConfig';
-import { BaseActionType, createOnchainTest } from './onchainTestKit';
+import { BaseActionType, createOnchainTest } from '@coinbase/onchaintestkit';
 
 const test = createOnchainTest(metamaskWalletConfig);
 const { expect } = test;
@@ -201,12 +203,113 @@ const config = configure()
 - `withNetwork()`: Configure network settings
 - `withCustomSetup()`: Add custom setup steps
 
+## Copilot Setup Steps
+
+For AI coding agents and automated development workflows, this project includes automated setup steps that ensure your development environment is properly configured.
+
+### Quick Setup Commands
+
+```bash
+# Quick setup (recommended)
+npm run copilot:setup
+
+# Full setup with validation
+npm run copilot:full-setup
+
+# Validation only
+npm run copilot:validate
+```
+
+### Manual Setup (Essential Commands)
+
+Run these commands in order for manual setup:
+
+```bash
+# 1. Install dependencies (required first)
+npm install
+
+# 2. Build the project (required before testing)  
+npm run build
+
+# 3. Run linter (fix issues before committing)
+npm run lint
+npm run lint:fix  # Auto-fix issues
+
+# 4. Format code
+npm run format
+
+# 5. Run tests
+npm run test
+
+# 6. Prepare wallet extensions
+npm run prepare-metamask    # ✅ Works correctly
+npm run prepare-coinbase    # ⚠️  Currently broken (known issue)
+npm run prepare-phantom     # ⚠️  Currently broken (known issue)
+```
+
+### GitHub Actions Integration
+
+The project includes automated workflows for continuous integration:
+
+- **`.github/workflows/copilot-setup.yml`** - Automated setup validation
+- **`.github/workflows/development.yml`** - Development workflow with code quality checks
+- **`.github/workflows/manual-setup-test.yml`** - Manual testing workflow
+
+### Setup Scripts
+
+- **`scripts/quick-setup.sh`** - Runs essential setup commands in the correct order
+- **`scripts/validate-setup.sh`** - Comprehensive validation of the development environment
+
+### For AI Coding Agents
+
+See these instruction files for detailed guidance:
+- **`.github/copilot-instructions.md`** - GitHub Copilot instructions
+- **`.github/instructions/`** - Specialized instruction files
+- **`AGENTS.md`** - General AI agent instructions  
+- **`CLAUDE.md`** - Claude-specific instructions
+- **`GEMINI.md`** - Gemini-specific instructions
+
 ## Development
 
-- Run `yarn` to install dependencies
-- Run `yarn build` to build the project
-- Run `yarn format` to format code
-- Run `yarn lint` to check for linting issues
+- Run `npm install` to install dependencies
+- Run `npm run build` to build the project
+- Run `npm run format` to format code
+- Run `npm run lint` to check for linting issues
+- Run `npm run copilot:setup` for automated setup
+
+## GitHub Copilot and AI Agent Setup
+
+This repository includes comprehensive documentation for AI-powered development:
+
+### Quick Setup Guides
+- **[AI Agent Configuration Hub](.github/agents/README.md)** - Centralized guide for all AI coding agents
+- **[GitHub Copilot Setup](.github/copilot-instructions.md)** - Complete setup guide with troubleshooting and example workflows
+- **[General AI Agents](AGENTS.md)** - Setup instructions for all AI coding agents
+- **[Claude AI Setup](CLAUDE.md)** - Claude-specific setup and optimization
+- **[Gemini AI Setup](GEMINI.md)** - Gemini-specific rapid development workflows
+
+### Specialized Instructions
+- **[Development Setup](.github/instructions/development.instructions.md)** - Development environment and coding standards
+- **[Testing Setup](.github/instructions/testing.instructions.md)** - Comprehensive testing strategies
+- **[Wallet Integration](.github/instructions/wallet-integration.instructions.md)** - Wallet-specific setup and patterns
+
+### Examples and Patterns
+- **[Example Code](example/README.md)** - Practical examples with agent-specific usage guidance
+- **[API Documentation](docs/)** - Detailed configuration and usage documentation
+
+### Quick Start for AI Agents
+```bash
+# 1. Basic setup
+npm install && npm run build && npm run test
+
+# 2. Prepare wallet testing
+npm run prepare-metamask
+cp .env.example .env
+# Edit .env to add your E2E_TEST_SEED_PHRASE and any other secrets
+nano .env   # Or use your preferred editor (vim, code, etc.)
+
+# 3. Choose your agent documentation and start coding!
+```
 
 ## Contributing
 
