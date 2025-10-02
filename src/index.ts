@@ -1,6 +1,6 @@
 export { createOnchainTest } from "./createOnchainTest"
 export { configure } from "./configBuilder"
-export { BaseActionType, ActionApprovalType } from "./wallets/BaseWallet"
+export { BaseActionType } from "./wallets/BaseWallet"
 export { CoinbaseSpecificActionType, CoinbaseWallet } from "./wallets/Coinbase"
 export { MetaMask } from "./wallets/MetaMask"
 export { PhantomSpecificActionType, PhantomWallet } from "./wallets/Phantom"
