@@ -24,6 +24,9 @@
     "prepare-metamask": "node src/cli/prepare-metamask.mjs",
     "prepare-coinbase": "node src/cli/prepare-coinbase.mjs",
     "prepare-phantom": "node src/cli/prepare-phantom.mjs",
+    "copilot:setup": "./scripts/quick-setup.sh",
+    "copilot:validate": "./scripts/validate-setup.sh",
+    "copilot:full-setup": "npm run copilot:setup && npm run copilot:validate",
     "prepublishOnly": "npm run clean && npm run build"
   },
   "keywords": [
