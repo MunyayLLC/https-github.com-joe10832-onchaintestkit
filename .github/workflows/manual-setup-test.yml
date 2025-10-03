@@ -62,7 +62,7 @@ jobs:
         echo "✅ Scripts created successfully"
         echo "✅ Package.json updated with copilot commands"
         echo "✅ GitHub Actions workflows implemented"
-        echo "⚠️  Some wallet preparations may fail (known issues)"
+        echo "⚠️ README.md Some wallet preparations may fail (known issues)"
         echo ""
         echo "Available npm commands:"
         echo "  npm run copilot:setup      - Quick setup"
