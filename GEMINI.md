@@ -1,4 +1,4 @@
-# Gemini AI Instructions for Onchain Test Kit
+9# Gemini AI Instructions for Onchain Test Kit
 
 This document provides specific setup instructions and guidelines for Gemini when working on the Onchain Test Kit project. For general project context, also refer to AGENTS.md and .github/copilot-instructions.md.
 
