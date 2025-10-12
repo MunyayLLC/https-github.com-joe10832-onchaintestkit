@@ -13,17 +13,20 @@ Thank you for your interest in contributing to Onchain Test Kit! This document p
 ### Getting Started
 
 1. **Fork and clone the repository**
+
    ```bash
    git clone <repository-url>
    cd onchaintestkit
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Verify the setup**
+
    ```bash
    npm run build
    npm run lint
@@ -35,6 +38,7 @@ Thank you for your interest in contributing to Onchain Test Kit! This document p
 ### Code Changes
 
 1. **Create a feature branch**
+
    ```bash
    git checkout -b feature/your-feature-name
    ```
@@ -46,6 +50,7 @@ Thank you for your interest in contributing to Onchain Test Kit! This document p
    - Update documentation as needed
 
 3. **Validate your changes**
+
    ```bash
    npm run lint        # Check code style
    npm run build       # Ensure it compiles
@@ -53,6 +58,7 @@ Thank you for your interest in contributing to Onchain Test Kit! This document p
    ```
 
 4. **Commit your changes**
+
    ```bash
    git add .
    git commit -m "feat: add new wallet action support"
@@ -61,6 +67,7 @@ Thank you for your interest in contributing to Onchain Test Kit! This document p
 ### Testing
 
 #### Running Tests
+
 ```bash
 npm run test                    # Run all tests
 npm run test -- --grep="MetaMask"  # Run specific tests
@@ -103,6 +110,7 @@ Use conventional commit format:
 - `chore:` for maintenance tasks
 
 Examples:
+
 ```
 feat: add Phantom wallet support for Solana
 fix: handle MetaMask connection timeout
@@ -115,16 +123,19 @@ test: add integration tests for token approval flow
 ### Before Submitting
 
 1. **Ensure all tests pass**
+
    ```bash
    npm run test
    ```
 
 2. **Verify linting passes**
+
    ```bash
    npm run lint
    ```
 
 3. **Build successfully**
+
    ```bash
    npm run build
    ```
@@ -162,6 +173,7 @@ test: add integration tests for token approval flow
 ### Adding New Wallet Support
 
 1. **Create wallet directory**
+
    ```
    src/wallets/NewWallet/
    ├── index.ts        # Main wallet implementation
@@ -180,6 +192,7 @@ test: add integration tests for token approval flow
    - Add validation logic
 
 4. **Add CLI preparation script**
+
    ```bash
    src/cli/prepare-newwallet.sh
    src/cli/prepare-newwallet.mjs
@@ -188,6 +201,7 @@ test: add integration tests for token approval flow
 ### Adding New Actions
 
 1. **Define action types**
+
    ```typescript
    type NewAction = 'newActionType';
    type WalletActions = ExistingActions | NewAction;
@@ -238,6 +252,7 @@ test: add integration tests for token approval flow
 ## Testing Guidelines
 
 ### Test Organization
+
 ```
 tests/
 ├── config/         # Configuration testing
@@ -249,6 +264,7 @@ tests/
 ### Test Patterns
 
 #### Configuration Tests
+
 ```typescript
 import { configure } from '../src/configBuilder';
 
@@ -263,6 +279,7 @@ test('should configure MetaMask with seed phrase', () => {
 ```
 
 #### Integration Tests
+
 ```typescript
 import { createOnchainTest } from '../src';
 
