@@ -1,16 +1,22 @@
-# AGENTS.md
+# AGENTS Documentation
 
-This file documents the available AI agents for use with GitHub Copilot in this repository.
+## Overview
+This document outlines the agent configurations and their functionalities.
 
-## Available Agents
+## Agent Types
+- **Agent Type 1**: Description of agent type 1.
+- **Agent Type 2**: Description of agent type 2.
 
-- **Claude**: See `CLAUDE.md` for instructions.
-- **Gemini**: See `GEMINI.md` for instructions.
+## Configuration
+- **Configuration Parameter 1**: Details.
+- **Configuration Parameter 2**: Details.
 
-## Adding New Agents
+## Usage
+Instructions on how to use the agents effectively.
 
-To add a new agent:
-1. Create a markdown configuration file for your agent.
-2. Add a section here referencing your new agent and its setup file.
+## Examples
+- Example usage of Agent Type 1.
+- Example usage of Agent Type 2.
 
-For questions or contributions, please open an issue or pull request.
+## Conclusion
+Summary of the agents and their capabilities.
