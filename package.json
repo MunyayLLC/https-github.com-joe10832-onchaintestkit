@@ -78,7 +78,7 @@
     "./src/*": "./src/*",
     "./package.json": "./package.json"
   },
-  "packageManager": "yarn@4.9.2",
+  "packageManager": "yarn@4.10.3",
   "resolutions": {
     "ws": "^8.17.1",
     "@babel/runtime": "^7.26.10",
