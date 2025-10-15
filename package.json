@@ -46,7 +46,7 @@
   },
   "dependencies": {
     "@coinbase/onchainkit": "^0.36.4",
-    "ethers": "^5.7.2",
+    "ethers": "^6.0.0",
     "extract-zip": "^2.0.1",
     "fs-extra": "^11.1.1",
     "node-fetch": "^3.3.2",
