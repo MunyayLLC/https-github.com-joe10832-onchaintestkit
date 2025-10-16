@@ -1,336 +1,109 @@
-# Contributing to Onchain Test Kit
+# Contributing
 
-Thank you for your interest in contributing to Onchain Test Kit! This document provides guidelines and information for contributors.
+All contributions are welcome, from the tiniest typo to a brand new article.
+Translations in all languages are welcome (or, for that matter, original
+articles in any language). Send a pull request or open an issue any time of day
+or night.
 
-## Development Setup
+**Please prepend the tag `[language/lang-code]` to your issues and pull
+requests.** For example, `[python/en]` for English Python. This will help
+everyone pick out things they care about.
 
-### Prerequisites
+We're happy for any contribution in any form, but if you're making more than one
+major change (i.e. translations for two different languages) it would be super
+cool of you to make a separate pull request for each one so that someone can
+review them more effectively and/or individually.
 
-- Node.js >= 14.0.0
-- npm or yarn
-- Git
+## Style Guidelines
 
-### Getting Started
+* **Keep lines under 80 chars**
+   * Try to keep line length in code blocks to 80 characters or fewer.
+   * Otherwise, the text will overflow and look odd.
+   * This and other potential pitfalls to format the content consistently are
+     identified by [markdownlint](https://github.com/markdownlint/markdownlint).
+* **Prefer example to exposition**
+   * Try to use as few words as possible.
+   * Code examples are preferred over exposition in all cases.
+* **Eschew surplusage**
+   * We welcome newcomers, but the target audience for this site is programmers
+     with some experience.
+   * Try to avoid explaining basic concepts except for those specific to the
+     language in question.
+   * Keep articles succinct and scannable. We all know how to use Google here.
+* **Use UTF-8**
 
-1. **Fork and clone the repository**
+### Header configuration
 
-   ```bash
-   git clone <repository-url>
-   cd onchaintestkit
-   ```
+The actual site generates HTML files from these Markdown ones.
+The markdown files can contain extra metadata before the actual markdown,
+called frontmatter.
 
-2. **Install dependencies**
+The following fields are necessary for English articles about programming
+languages:
 
-   ```bash
-   npm install
-   ```
+* `name`: The human-readable name of the programming language
+* `contributors`: A list of [*author*, *URL*] lists to credit, *URL* is optional
 
-3. **Verify the setup**
+Other fields:
 
-   ```bash
-   npm run build
-   npm run lint
-   npm run test
-   ```
+* `category`: The category of the article. So far, can be one of *language*,
+  *tool* or *Algorithms & Data Structures*. Defaults to *language* if omitted.
+* `filename`: The filename for this article's code. It will be fetched, mashed
+  together, and made downloadable.
 
-## Development Workflow
+Translations should also include:
+* `translators`: A list of [*translator*, *URL*] lists to credit, *URL* is optional
 
-### Code Changes
+Non-English articles inherit frontmatter values from the English article (if it exists)
+but you can overwrite them.
 
-1. **Create a feature branch**
+Here's an example header for Ruby:
 
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
-
-2. **Make your changes following the coding guidelines**
-   - Follow TypeScript best practices
-   - Use the existing architectural patterns
-   - Add tests for new functionality
-   - Update documentation as needed
-
-3. **Validate your changes**
-
-   ```bash
-   npm run lint        # Check code style
-   npm run build       # Ensure it compiles
-   npm run test        # Run tests
-   ```
-
-4. **Commit your changes**
-
-   ```bash
-   git add .
-   git commit -m "feat: add new wallet action support"
-   ```
-
-### Testing
-
-#### Running Tests
-
-```bash
-npm run test                    # Run all tests
-npm run test -- --grep="MetaMask"  # Run specific tests
+```yaml
+---
+name: Ruby
+filename: learnruby.rb
+contributors:
+    - ["Doktor Esperanto", "http://example.com/"]
+    - ["Someone else", "http://someoneelseswebsite.com/"]
+---
 ```
 
-#### Writing Tests
-- Place tests in the `tests/` directory
-- Follow existing test patterns
-- Use descriptive test names
-- Test both success and error cases
+### Syntax highlighter
 
-#### Test Requirements
-- All new features must have corresponding tests
-- Wallet actions must be tested with all supported wallets
-- Configuration changes require validation tests
-- Fork mode features need integration tests
+[Pygments](https://pygments.org/languages/) is used for syntax highlighting.
 
-### Code Style
+### Should I add myself as a contributor?
 
-#### TypeScript Guidelines
-- Use strict TypeScript settings
-- Prefer explicit types over `any`
-- Use proper interface definitions
-- Follow existing naming conventions
+If you want to add yourself to contributors, keep in mind that contributors get
+equal billing, and the first contributor usually wrote the whole article. Please
+use your judgment when deciding if your contribution constitutes a substantial
+addition or not.
 
-#### Formatting and Linting
-- Use Biome for formatting and linting
-- Run `npm run format` before committing
-- Fix linting issues with `npm run lint:fix`
-- Follow existing code organization patterns
+## Building the site locally
 
-### Commit Messages
+Install Python. On macOS this can be done with [Homebrew](https://brew.sh/).
 
-Use conventional commit format:
-- `feat:` for new features
-- `fix:` for bug fixes
-- `docs:` for documentation changes
-- `test:` for test additions/modifications
-- `refactor:` for code refactoring
-- `chore:` for maintenance tasks
-
-Examples:
-
-```
-feat: add Phantom wallet support for Solana
-fix: handle MetaMask connection timeout
-docs: update fork mode configuration examples
-test: add integration tests for token approval flow
+```sh
+brew install python
 ```
 
-## Pull Request Process
+Then clone two repos, install dependencies and run.
 
-### Before Submitting
+```sh
+# Clone website
+git clone https://github.com/adambard/learnxinyminutes-site
+# Clone docs (this repo) nested in website
+git clone https://github.com/<YOUR-USERNAME>/learnxinyminutes-docs ./learnxinyminutes-site/source/docs/
 
-1. **Ensure all tests pass**
+# Install dependencies
+cd learnxinyminutes-site
+pip install -r requirements.txt
 
-   ```bash
-   npm run test
-   ```
+# Run
+python build.py
+cd build
+python -m http.server
 
-2. **Verify linting passes**
-
-   ```bash
-   npm run lint
-   ```
-
-3. **Build successfully**
-
-   ```bash
-   npm run build
-   ```
-
-4. **Update documentation** if your changes affect the API
-
-### PR Guidelines
-
-1. **Write a clear PR title and description**
-   - Explain what the PR does
-   - Reference any related issues
-   - Include breaking change notes if applicable
-
-2. **Keep PRs focused**
-   - One feature/fix per PR
-   - Avoid mixing unrelated changes
-
-3. **Include examples**
-   - Add code examples for new features
-   - Update README.md with usage examples
-
-4. **Add tests**
-   - Include comprehensive tests
-   - Test edge cases and error conditions
-
-### Review Process
-
-- All PRs require review from maintainers
-- Address feedback promptly
-- Keep discussions constructive and respectful
-- Be patient during the review process
-
-## Architecture Guidelines
-
-### Adding New Wallet Support
-
-1. **Create wallet directory**
-
-   ```
-   src/wallets/NewWallet/
-   ├── index.ts        # Main wallet implementation
-   ├── fixtures.ts     # Playwright fixtures
-   └── types.ts        # Wallet-specific types
-   ```
-
-2. **Implement required interfaces**
-   - Extend base wallet class
-   - Implement all required action handlers
-   - Follow existing patterns
-
-3. **Update configuration builder**
-   - Add `.withNewWallet()` method
-   - Update type definitions
-   - Add validation logic
-
-4. **Add CLI preparation script**
-
-   ```bash
-   src/cli/prepare-newwallet.sh
-   src/cli/prepare-newwallet.mjs
-   ```
-
-### Adding New Actions
-
-1. **Define action types**
-
-   ```typescript
-   type NewAction = 'newActionType';
-   type WalletActions = ExistingActions | NewAction;
-   ```
-
-2. **Implement handlers**
-   - Add to all wallet implementations
-   - Include proper error handling
-   - Add parameter validation
-
-3. **Add tests**
-   - Test with all supported wallets
-   - Include success and failure cases
-   - Test parameter edge cases
-
-### Configuration Changes
-
-1. **Maintain backward compatibility**
-   - Add new options as optional
-   - Provide sensible defaults
-   - Document migration steps for breaking changes
-
-2. **Validate inputs**
-   - Check required parameters
-   - Validate network configurations
-   - Provide helpful error messages
-
-## Documentation
-
-### API Documentation
-- Update inline JSDoc comments
-- Include parameter descriptions
-- Add usage examples
-- Document error conditions
-
-### README Updates
-- Add new features to the feature list
-- Update configuration examples
-- Include troubleshooting information
-- Update installation instructions if needed
-
-### Example Updates
-- Add examples for new features
-- Keep examples simple and focused
-- Test examples to ensure they work
-- Update existing examples if APIs change
-
-## Testing Guidelines
-
-### Test Organization
-
+# open http://localhost:8000/ in your browser of choice
 ```
-tests/
-├── config/         # Configuration testing
-├── wallets/        # Wallet-specific tests
-├── integration/    # End-to-end tests
-└── utils/          # Test utilities
-```
-
-### Test Patterns
-
-#### Configuration Tests
-
-```typescript
-import { configure } from '../src/configBuilder';
-
-test('should configure MetaMask with seed phrase', () => {
-  const config = configure()
-    .withMetaMask()
-    .withSeedPhrase({ seedPhrase: 'test', password: 'password' })
-    .build();
-    
-  expect(config.wallets.metamask).toBeDefined();
-});
-```
-
-#### Integration Tests
-
-```typescript
-import { createOnchainTest } from '../src';
-
-const test = createOnchainTest(/* config */);
-
-test('should connect and perform transaction', async ({ page, metamask }) => {
-  // Test implementation
-});
-```
-
-### Fork Mode Testing
-
-When testing fork mode functionality:
-- Use specific block numbers for reproducibility
-- Mock RPC calls when possible
-- Test with different network configurations
-- Validate error handling for connection issues
-
-## Release Process
-
-### Version Management
-- Follow semantic versioning (semver)
-- Update package.json version
-- Create changelog entries
-- Tag releases properly
-
-### Breaking Changes
-- Document breaking changes thoroughly
-- Provide migration guides
-- Update examples
-- Consider deprecation warnings
-
-## Getting Help
-
-### Resources
-- Check existing documentation
-- Look at example implementations
-- Review test cases for patterns
-- Search existing issues
-
-### Communication
-- Open GitHub issues for bugs and feature requests
-- Use discussions for questions and ideas
-- Tag maintainers when needed
-- Be respectful and constructive
-
-## Code of Conduct
-
-- Be respectful and inclusive
-- Focus on constructive feedback
-- Help others learn and grow
-- Follow project guidelines
-
-Thank you for contributing to Onchain Test Kit!
