@@ -52,6 +52,7 @@ Other fields:
   together, and made downloadable.
 
 Translations should also include:
+
 * `translators`: A list of [*translator*, *URL*] lists to credit, *URL* is optional
 
 Non-English articles inherit frontmatter values from the English article (if it exists)
