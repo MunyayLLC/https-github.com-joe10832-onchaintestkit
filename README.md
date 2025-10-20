@@ -43,6 +43,7 @@ As a contributor, your expertise in `{domain}` will help shape the success of th
 ## 📜 Code Guidelines
 
 ### General Guidelines
+
 - Use **language-specific conventions** for Python, Java, and C++.
 - Follow **design patterns** and **best practices** for enterprise software.
 - Optimize for **performance**, **readability**, and **scalability**.
