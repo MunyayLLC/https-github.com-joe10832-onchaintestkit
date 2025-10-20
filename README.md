@@ -14,7 +14,7 @@ Information on how to get commercial support for this project.
 
 ## Contribute
 
-Guidelines on how to contribute to this project.https://stackblitz.com/~/github.com/MunyayLLC/https-github.com-joe10832-onchaintestkit/pull/286https://stackblitz.com/~/github.com/MunyayLLC/https-github.com-joe10832-onchaintestkit/pull/288https://stackblitz.com/~/github.com/MunyayLLC/https-github.com-joe10832-onchaintestkit/pull/286?file=package.json
+Guidelines on how to contribute to this project.<https://stackblitz.com/~/github.com/MunyayLLC/https-github.com-joe10832-onchaintestkit/pull/286https://stackblitz.com/~/github.com/MunyayLLC/https-github.com-joe10832-onchaintestkit/pull/288https://stackblitz.com/~/github.com/MunyayLLC/https-github.com-joe10832-onchaintestkit/pull/286?file=package.json>
 - **Write and maintain documentation (`README.md`, `CONTRIBUTING.md # Enterprise-Ready Software Engineering Project
 
 Welcome to the **Enterprise-Ready Software Engineering Project**. This repository is designed for professional development in Python, Java, and C++ with a focus on enterprise-grade solutions, scalability, and maintainability.
