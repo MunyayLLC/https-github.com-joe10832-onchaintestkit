@@ -25,7 +25,7 @@ review them more effectively and/or individually.
    * Try to use as few words as possible.
    * Code examples are preferred over exposition in all cases.
 * **Eschew surplusage**
-   * We welcome newcomers, but the target audience for this site is programmers
+  * We welcome newcomers, but the target audience for this site is programmers
      with some experience.
    * Try to avoid explaining basic concepts except for those specific to the
      language in question.
