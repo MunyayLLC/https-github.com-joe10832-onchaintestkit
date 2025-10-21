@@ -22,7 +22,7 @@ review them more effectively and/or individually.
   * This and other potential pitfalls to format the content consistently are
      identified by [markdownlint](https://github.com/markdownlint/markdownlint).
 * **Prefer example to exposition**
-   * Try to use as few words as possible.
+  * Try to use as few words as possible.
   * Code examples are preferred over exposition in all cases.
 * **Eschew surplusage**
   * We welcome newcomers, but the target audience for this site is programmers
