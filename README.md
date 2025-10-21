@@ -57,7 +57,6 @@ As a contributor, your expertise in `{domain}` will help shape the success of th
 
 ### Java
 
-
 - Adhere to [Oracle's Java Code Conventions](https://www.oracle.com/java/technologies/javase/codeconventions-introduction.html).
 - Use Maven or Gradle for dependency management.
 - Write JUnit tests for all major components.
