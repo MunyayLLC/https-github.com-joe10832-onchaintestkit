@@ -62,6 +62,7 @@ As a contributor, your expertise in `{domain}` will help shape the success of th
 - Write JUnit tests for all major components.
 
 ### C++
+
 - Follow [Google's C++ Style Guide](https://google.github.io/styleguide/cppguide.html).
 - Use `CMake` for build configuration.
 - Ensure memory safety and avoid undefined behavior.
