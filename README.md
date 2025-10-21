@@ -50,6 +50,7 @@ As a contributor, your expertise in `{domain}` will help shape the success of th
 - Optimize for **performance**, **readability**, and **scalability**.
 
 ### Python
+
 - Follow [PEP 8](https://peps.python.org/pep-0008/) for coding standards.
 - Use type hints and docstrings for better readability.
 - Write unit tests using `unittest` or `pytest`.
