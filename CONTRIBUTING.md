@@ -17,7 +17,7 @@ review them more effectively and/or individually.
 ## Style Guidelines
 
 * **Keep lines under 80 chars**
-   * Try to keep line length in code blocks to 80 characters or fewer.
+  * Try to keep line length in code blocks to 80 characters or fewer.
   * Otherwise, the text will overflow and look odd.
   * This and other potential pitfalls to format the content consistently are
      identified by [markdownlint](https://github.com/markdownlint/markdownlint).
