@@ -18,14 +18,14 @@ review them more effectively and/or individually.
 
 * **Keep lines under 80 chars**
    * Try to keep line length in code blocks to 80 characters or fewer.
-   * Otherwise, the text will overflow and look odd.
-   * This and other potential pitfalls to format the content consistently are
+  * Otherwise, the text will overflow and look odd.
+  * This and other potential pitfalls to format the content consistently are
      identified by [markdownlint](https://github.com/markdownlint/markdownlint).
 * **Prefer example to exposition**
    * Try to use as few words as possible.
    * Code examples are preferred over exposition in all cases.
 * **Eschew surplusage**
-   * We welcome newcomers, but the target audience for this site is programmers
+  * We welcome newcomers, but the target audience for this site is programmers
      with some experience.
    * Try to avoid explaining basic concepts except for those specific to the
      language in question.
@@ -52,6 +52,7 @@ Other fields:
   together, and made downloadable.
 
 Translations should also include:
+
 * `translators`: A list of [*translator*, *URL*] lists to credit, *URL* is optional
 
 Non-English articles inherit frontmatter values from the English article (if it exists)
