@@ -29,7 +29,7 @@ review them more effectively and/or individually.
      with some experience.
   * Try to avoid explaining basic concepts except for those specific to the
      language in question.
-   * Keep articles succinct and scannable. We all know how to use Google here.
+  * Keep articles succinct and scannable. We all know how to use Google here.
 * **Use UTF-8**
 
 ### Header configuration
