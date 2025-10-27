@@ -2,6 +2,8 @@ Formatting.**# Project Title
 
 ## Quickstart
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/18c0e1aec84845c69554ab9f57b41f43)](https://app.codacy.com/gh/MunyayLLC/https-github.com-joe10832-onchaintestkit?utm_source=github.com&utm_medium=referral&utm_content=MunyayLLC/https-github.com-joe10832-onchaintestkit&utm_campaign=Badge_Grade)
+
 Instructions on how to quickly get started with this project.
 
 ## Why use
