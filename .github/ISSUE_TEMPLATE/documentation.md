@@ -1,9 +1,10 @@
 ---
 name: Documentation Issue
 about: Report an issue with documentation or request documentation improvements
-title: '[DOCS] '
-labels: 'documentation'
+title: "[DOCS] "
+labels: documentation
 assignees: ''
+
 ---
 
 ## Documentation Issue Type
