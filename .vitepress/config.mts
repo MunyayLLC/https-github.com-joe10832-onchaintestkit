@@ -6,6 +6,8 @@ export default defineConfig({
   description:
     "End-to-end testing toolkit for blockchain applications, powered by Playwright",
 
+  ignoreDeadLinks: true,
+
   head: [
     // Vercel Web Analytics will be injected via theme setup
   ],
@@ -16,6 +18,7 @@ export default defineConfig({
       { text: "Home", link: "/" },
       { text: "Guide", link: "/guide" },
       { text: "Examples", link: "/examples" },
+      { text: "Vercel Web Analytics", link: "/vercel-web-analytics" },
     ],
 
     sidebar: [
@@ -24,6 +27,7 @@ export default defineConfig({
         items: [
           { text: "Introduction", link: "/guide" },
           { text: "Installation", link: "/installation" },
+          { text: "Vercel Web Analytics", link: "/vercel-web-analytics" },
         ],
       },
     ],
