@@ -1,90 +1,220 @@
-Formatting.**# Project Title
+# OnChainTestKit
 
-## Quickstart
+[![npm version](https://img.shields.io/npm/v/@coinbase/onchaintestkit.svg)](https://www.npmjs.com/package/@coinbase/onchaintestkit)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Instructions on how to quickly get started with this project.
+**OnChainTestKit** is an end-to-end testing toolkit for blockchain applications, powered by Playwright. It provides comprehensive testing utilities for Web3 applications with native wallet support.
 
-## Why use
+## 🚀 Features
 
-Reasons to use this project.
+- 🔗 **Blockchain Testing**: Complete E2E testing for blockchain applications
+- 🎭 **Playwright Integration**: Built on Playwright for reliable automation
+- 🔐 **Multiple Wallets**: Native support for MetaMask, Coinbase Wallet, and Phantom
+- 🌐 **Network Support**: Test on mainnet, testnets, or local nodes with fork mode
+- 🛠️ **Easy Configuration**: Simple, chainable configuration API
+- 📝 **TypeScript Support**: Full TypeScript definitions included
 
-## Getting Commercial Support
+## 📦 Installation
 
-Information on how to get commercial support for this project.
+Install OnChainTestKit using your preferred package manager:
 
-## Contribute
+```bash
+# npm
+npm install @coinbase/onchaintestkit
 
-Guidelines on how to contribute to this project.<https://stackblitz.com/~/github.com/MunyayLLC/https-github.com-joe10832-onchaintestkit/pull/286https://stackblitz.com/~/github.com/MunyayLLC/https-github.com-joe10832-onchaintestkit/pull/288https://stackblitz.com/~/github.com/MunyayLLC/https-github.com-joe10832-onchaintestkit/pull/286?file=package.json>
+# yarn
+yarn add @coinbase/onchaintestkit
 
-- **Write and maintain documentation (`README.md`, `CONTRIBUTING.md # Enterprise-Ready Software Engineering Project
+# pnpm
+pnpm add @coinbase/onchaintestkit
+```
 
-Welcome to the **Enterprise-Ready Software Engineering Project**. This repository is designed for professional development in Python, Java, and C++ with a focus on enterprise-grade solutions, scalability, and maintainability.
+### Prerequisites
+
+- Node.js 14.0.0 or higher
+- Playwright Test: `npm install --save-dev @playwright/test`
+
+## 🎯 Quick Start
+
+### 1. Prepare Wallet Extensions
+
+```bash
+# Prepare MetaMask extension
+npm run prepare-metamask
+
+# Or use the CLI directly
+npx prepare-metamask
+```
+
+### 2. Set Up Environment Variables
+
+```bash
+export E2E_TEST_SEED_PHRASE="test test test test test test test test test test test junk"
+```
+
+⚠️ **Warning**: Never use real seed phrases or funds for testing!
+
+### 3. Create Your First Test
+
+```typescript
+import { configure, createOnchainTest } from '@coinbase/onchaintestkit';
+import { test } from '@playwright/test';
+
+const config = configure()
+  .withMetaMask()
+  .withSeedPhrase({
+    seedPhrase: process.env.E2E_TEST_SEED_PHRASE,
+    password: 'TestPassword123'
+  })
+  .build();
+
+test('connect wallet and interact', async () => {
+  const { page, wallet } = await createOnchainTest(config);
+  
+  await page.goto('https://your-dapp.com');
+  await wallet.connect();
+  
+  // Your test logic here
+});
+```
+
+## 🔧 Configuration
+
+### Basic Configuration
+
+```typescript
+import { configure } from '@coinbase/onchaintestkit';
+
+const config = configure()
+  .withMetaMask()
+  .withSeedPhrase({
+    seedPhrase: process.env.E2E_TEST_SEED_PHRASE,
+    password: 'PASSWORD'
+  })
+  .build();
+```
+
+### Fork Mode Testing
+
+Test against a forked mainnet for reproducible tests:
+
+```typescript
+const forkConfig = configure()
+  .withLocalNode({
+    fork: 'https://eth-mainnet.g.alchemy.com/v2/your-api-key',
+    forkBlockNumber: 18500000, // Specific block for reproducibility
+    chainId: 1,
+  })
+  .withMetaMask()
+  .withSeedPhrase({
+    seedPhrase: process.env.E2E_TEST_SEED_PHRASE,
+    password: 'PASSWORD'
+  })
+  .build();
+```
+
+### Multi-Network Support
+
+```typescript
+import { baseSepolia } from 'viem/chains';
+
+const networkConfig = configure()
+  .withMetaMask()
+  .withSeedPhrase({ 
+    seedPhrase: process.env.E2E_TEST_SEED_PHRASE, 
+    password: 'PASSWORD' 
+  })
+  .withNetwork({
+    name: baseSepolia.name,
+    rpcUrl: baseSepolia.rpcUrls.default.http[0],
+    chainId: baseSepolia.id,
+    symbol: baseSepolia.nativeCurrency.symbol,
+  })
+  .build();
+```
+
+## 🔐 Supported Wallets
+
+OnChainTestKit provides native support for popular Web3 wallets:
+
+- **MetaMask** - Most widely used Ethereum wallet
+- **Coinbase Wallet** - Coinbase's self-custody wallet
+- **Phantom** - Leading Solana wallet with Ethereum support
+
+### Preparing Wallet Extensions
+
+```bash
+# MetaMask
+npm run prepare-metamask
+
+# Coinbase Wallet
+npm run prepare-coinbase
+
+# Phantom
+npm run prepare-phantom
+```
+
+## 📚 Documentation
+
+- [Full Documentation](https://github.com/MunyayLLC/https-github.com-joe10832-onchaintestkit/tree/main/docs)
+- [Installation Guide](./docs/installation.md)
+- [User Guide](./docs/guide.md)
+- [Examples](./example/)
+- [API Reference](./docs/)
+
+## 🧪 Testing
+
+Run the test suite:
+
+```bash
+npm test
+```
+
+## 🤝 Contributing
+
+We welcome contributions! Please see our [Contributing Guide](./CONTRIBUTING.md) for details.
+
+### Development Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/MunyayLLC/https-github.com-joe10832-onchaintestkit.git
+cd https-github.com-joe10832-onchaintestkit
+
+# Install dependencies
+npm install
+
+# Build the project
+npm run build
+
+# Run tests
+npm test
+
+# Format and lint
+npm run format
+npm run lint
+```
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+Built by Coinbase and powered by Playwright for robust blockchain application testing.
+
+## 🔗 Links
+
+- [GitHub Repository](https://github.com/MunyayLLC/https-github.com-joe10832-onchaintestkit)
+- [npm Package](https://www.npmjs.com/package/@coinbase/onchaintestkit)
+- [Issue Tracker](https://github.com/MunyayLLC/https-github.com-joe10832-onchaintestkit/issues)
+
+## 💬 Support
+
+- 📖 [Documentation](./docs/)
+- 🐛 [Report Issues](https://github.com/MunyayLLC/https-github.com-joe10832-onchaintestkit/issues)
+- 💡 [Request Features](https://github.com/MunyayLLC/https-github.com-joe10832-onchaintestkit/issues)
 
 ---
 
-## 🚀 Business Focus
-
-This project is tailored for **business enterprise-ready** solutions, ensuring professional-grade software engineering practices. It emphasizes:
-
-- **Scalability**: Designed to handle enterprise-level workloads.
-- **Maintainability**: Code structured for long-term use and collaboration.
-- **Integration**: Seamless integration with existing enterprise systems.
-
----
-
-## 🧑‍💻 Your Role
-
-- **Role Type**: `{role_type}` expert in `{domain}`
-- **Focus Area**: `{key_skill_area}`
-
-As a contributor, your expertise in `{domain}` will help shape the success of this project. Focus on `{key_skill_area}` to ensure high-quality contributions.
-
----
-
-## 📜 Code Guidelines
-
-### General Guidelines
-
-- Use **language-specific conventions** for Python, Java, and C++.
-- Follow **design patterns** and **best practices** for enterprise software.
-- Optimize for **performance**, **readability**, and **scalability**.
-
-### Python
-
-- Follow [PEP 8](https://peps.python.org/pep-0008/) for coding standards.
-- Use type hints and docstrings for better readability.
-- Write unit tests using `unittest` or `pytest`.
-
-### Java
-
-- Adhere to [Oracle's Java Code Conventions](https://www.oracle.com/java/technologies/javase/codeconventions-introduction.html).
-- Use Maven or Gradle for dependency management.
-- Write JUnit tests for all major components.
-
-### C++
-
-- Follow [Google's C++ Style Guide](https://google.github.io/styleguide/cppguide.html).
-- Use `CMake` for build configuration.
-- Ensure memory safety and avoid undefined behavior.
-
----
-
-## 🔧 Integration
-
-This project is designed to integrate seamlessly with enterprise systems. Key integration points include:
-
-- **APIs**: RESTful APIs for communication between services.
-- **Databases**: Support for relational and NoSQL databases.
-- **CI/CD Pipelines**: Automated testing and deployment workflows.
-
----
-
-## 📚 Further Reading
-
-- [Python Best Practices](https://realpython.com/)
-- [Java Design Patterns](https://java-design-patterns.com/)
-- [C++ Modern Practices](https://isocpp.org/)
-
----
-
-For questions or support, please open an issue or contact the project maintainer.
+**Note**: Always use test accounts and never use real funds when testing blockchain applications.
