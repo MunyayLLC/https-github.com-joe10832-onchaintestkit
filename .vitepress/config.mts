@@ -16,6 +16,7 @@ export default defineConfig({
       { text: "Home", link: "/" },
       { text: "Guide", link: "/guide" },
       { text: "Examples", link: "/examples" },
+      { text: "Best Practices", link: "/recommendations" },
     ],
 
     sidebar: [
@@ -24,6 +25,13 @@ export default defineConfig({
         items: [
           { text: "Introduction", link: "/guide" },
           { text: "Installation", link: "/installation" },
+          { text: "Examples", link: "/examples" },
+        ],
+      },
+      {
+        text: "Resources",
+        items: [
+          { text: "Best Practices", link: "/recommendations" },
         ],
       },
     ],
