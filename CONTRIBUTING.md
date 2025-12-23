@@ -1,38 +1,58 @@
 # Contributing to OnChainTestKit
 
-Thank you for your interest in contributing to OnChainTestKit! We welcome contributions from the community.
+Thank you for your interest in contributing to OnChainTestKit! We value contributions from the community and appreciate your time and effort.
+
+---
+
+## Table of Contents
+
+- [Getting Started](#-getting-started)
+- [Development Workflow](#-development-workflow)
+- [Code Style Guidelines](#-code-style-guidelines)
+- [Testing Guidelines](#-testing-guidelines)
+- [Documentation](#-documentation)
+- [Reporting Bugs](#-reporting-bugs)
+- [Suggesting Features](#-suggesting-features)
+- [Code Review Process](#-code-review-process)
+- [Getting Help](#-getting-help)
+
+---
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 
-- Node.js 14.0.0 or higher
-- npm, yarn, or pnpm
-- Git
-- Playwright Test
+Before you begin, ensure you have the following installed:
 
-### Setup Development Environment
+- **Node.js** 14.0.0 or higher
+- **npm**, yarn, or pnpm
+- **Git**
+- **Playwright Test**
 
-1. **Fork and clone the repository**
+### Development Environment Setup
+
+Follow these steps to set up your local development environment:
+
+#### 1. Fork and Clone
 
 ```bash
 git clone https://github.com/YOUR-USERNAME/https-github.com-joe10832-onchaintestkit.git
 cd https-github.com-joe10832-onchaintestkit
 ```
 
-2. **Install dependencies**
+#### 2. Install Dependencies
 
 ```bash
 npm install
 ```
 
-3. **Build the project**
+#### 3. Build the Project
 
 ```bash
 npm run build
 ```
 
-4. **Prepare wallet extensions**
+#### 4. Prepare Wallet Extensions
 
 ```bash
 npm run prepare-metamask
@@ -40,79 +60,99 @@ npm run prepare-coinbase
 npm run prepare-phantom
 ```
 
-5. **Set up environment variables**
+#### 5. Configure Environment
 
 ```bash
 export E2E_TEST_SEED_PHRASE="test test test test test test test test test test test junk"
 ```
 
-⚠️ **Never use real seed phrases or funds for testing!**
+> ⚠️ **Security Warning**: Never use real seed phrases or funds for testing!
 
-6. **Run tests**
+#### 6. Verify Setup
 
 ```bash
 npm test
 ```
+
+---
 
 ## 🔄 Development Workflow
 
 ### 1. Create a Feature Branch
 
-Always create a new branch for your changes:
+Always work on a dedicated branch for your changes:
 
 ```bash
-git checkout -b feature/your-feature-name
-# or
-git checkout -b fix/your-bug-fix
+# For new features
+git checkout -b feature/descriptive-feature-name
+
+# For bug fixes
+git checkout -b fix/descriptive-bug-name
+
+# For documentation
+git checkout -b docs/descriptive-doc-change
 ```
 
 ### 2. Make Your Changes
 
-- Write clean, maintainable code
-- Follow the existing code style and patterns
-- Add tests for new features or bug fixes
-- Update documentation as needed
+Follow these principles while making changes:
+
+- ✅ Write clean, maintainable code
+- ✅ Follow existing code structure and patterns
+- ✅ Add tests for new features or bug fixes
+- ✅ Update documentation for API changes
+- ✅ Keep commits atomic and focused
 
 ### 3. Test Your Changes
+
+Run comprehensive checks before committing:
 
 ```bash
 # Run all tests
 npm test
 
-# Run linting
+# Check code style
 npm run lint
 
-# Fix linting issues
+# Auto-fix linting issues
 npm run lint:fix
 
 # Format code
 npm run format
+
+# Build to verify compilation
+npm run build
 ```
 
 ### 4. Commit Your Changes
 
-Use conventional commit messages:
+We follow the [Conventional Commits](https://www.conventionalcommits.org/) specification:
 
 ```bash
 git add .
-git commit -m "feat: add new wallet support"
-# or
-git commit -m "fix: resolve connection timeout issue"
-# or
-git commit -m "docs: update installation guide"
+git commit -m "type: brief description of changes"
 ```
 
-#### Commit Message Format
+**Commit Types:**
 
-Follow the [Conventional Commits](https://www.conventionalcommits.org/) specification:
+| Type | Description | Example |
+|------|-------------|---------|
+| `feat` | New feature | `feat: add support for Phantom wallet` |
+| `fix` | Bug fix | `fix: resolve connection timeout issue` |
+| `docs` | Documentation only | `docs: update installation guide` |
+| `style` | Code style/formatting | `style: apply consistent indentation` |
+| `refactor` | Code restructuring | `refactor: simplify config builder` |
+| `test` | Test additions/changes | `test: add wallet integration tests` |
+| `chore` | Maintenance tasks | `chore: update dependencies` |
+| `perf` | Performance improvement | `perf: optimize wallet loading` |
 
-- `feat:` - New feature
-- `fix:` - Bug fix
-- `docs:` - Documentation changes
-- `style:` - Code style changes (formatting, etc.)
-- `refactor:` - Code refactoring
-- `test:` - Test changes
-- `chore:` - Maintenance tasks
+**Example Commits:**
+
+```bash
+git commit -m "feat: add multi-chain support for Base network"
+git commit -m "fix: resolve MetaMask extension loading error"
+git commit -m "docs: add fork mode configuration examples"
+```
 
 ### 5. Push to Your Fork
 
@@ -120,176 +160,343 @@ Follow the [Conventional Commits](https://www.conventionalcommits.org/) specific
 git push origin feature/your-feature-name
 ```
 
-### 6. Create a Pull Request
+### 6. Submit a Pull Request
 
-1. Go to the [repository](https://github.com/MunyayLLC/https-github.com-joe10832-onchaintestkit)
-2. Click "New Pull Request"
-3. Select your branch
-4. Fill in the PR template with details about your changes
-5. Submit the pull request
+1. Navigate to the [repository](https://github.com/MunyayLLC/https-github.com-joe10832-onchaintestkit)
+2. Click **"New Pull Request"**
+3. Select your feature branch
+4. Fill out the PR template completely
+5. Link any related issues
+6. Submit for review
+
+---
 
 ## 📝 Code Style Guidelines
 
-### TypeScript/JavaScript
+### TypeScript/JavaScript Standards
 
-- Use TypeScript for all new code
-- Follow the existing code structure and patterns
-- Use meaningful variable and function names
-- Add JSDoc comments for public APIs
-- Keep functions small and focused
-- Avoid unnecessary complexity
+**Code Organization:**
 
-### Code Quality
+```typescript
+// 1. External imports first
+import { test, expect } from '@playwright/test';
 
-- **Write tests**: All new features should include tests
-- **Type safety**: Leverage TypeScript's type system
-- **Error handling**: Handle errors appropriately
-- **Documentation**: Update docs for API changes
-- **Performance**: Consider performance implications
+// 2. Internal imports second
+import { configure, createOnchainTest } from '@coinbase/onchaintestkit';
 
-### File Organization
+// 3. Type definitions
+interface WalletConfig {
+  seedPhrase: string;
+  password: string;
+}
+
+// 4. Implementation
+export function setupWallet(config: WalletConfig) {
+  // Implementation
+}
+```
+
+**Best Practices:**
+
+- ✅ Use TypeScript for all new code
+- ✅ Leverage TypeScript's type system fully
+- ✅ Use meaningful, descriptive names
+- ✅ Add JSDoc comments for public APIs
+- ✅ Keep functions small and focused (< 50 lines)
+- ✅ Prefer pure functions when possible
+- ✅ Handle errors explicitly
+
+**Example:**
+
+```typescript
+/**
+ * Configures a wallet for testing
+ * @param seedPhrase - Test wallet seed phrase
+ * @param password - Wallet password
+ * @returns Configured wallet instance
+ * @throws {Error} If seed phrase is invalid
+ */
+export function configureWallet(
+  seedPhrase: string,
+  password: string
+): WalletInstance {
+  if (!seedPhrase || seedPhrase.split(' ').length !== 12) {
+    throw new Error('Invalid seed phrase: must be 12 words');
+  }
+  
+  return new WalletInstance({ seedPhrase, password });
+}
+```
+
+### Code Quality Checklist
+
+- ☑️ **Type Safety** - No `any` types without justification
+- ☑️ **Error Handling** - All errors handled appropriately
+- ☑️ **Documentation** - Public APIs have JSDoc comments
+- ☑️ **Testing** - New code includes tests
+- ☑️ **Performance** - No obvious performance issues
+
+### Project Structure
 
 ```
 src/
-├── cli/              # CLI tools and scripts
-├── contracts/        # Smart contract management
-├── node/             # Local node and network interceptor
-├── utils/            # Utility functions
-├── wallets/          # Wallet implementations
+├── cli/                  # CLI tools and commands
+│   ├── prepare-coinbase.mjs
+│   ├── prepare-metamask.mjs
+│   └── prepare-phantom.mjs
+├── contracts/            # Smart contract utilities
+│   └── SmartContractManager.ts
+├── node/                 # Local node management
+│   ├── LocalNodeManager.ts
+│   ├── NetworkInterceptor.ts
+│   └── types.ts
+├── utils/                # Shared utilities
+│   └── ConnectorUtil.ts
+├── wallets/              # Wallet implementations
 │   ├── BaseWallet.ts
+│   ├── types.ts
 │   ├── Coinbase/
 │   ├── MetaMask/
 │   └── Phantom/
-└── index.ts          # Main exports
+├── configBuilder.ts      # Configuration builder
+├── constants.ts          # Shared constants
+├── createOnchainTest.ts  # Test creation
+├── index.ts              # Public API exports
+└── types.ts              # Shared types
 ```
+
+---
 
 ## 🧪 Testing Guidelines
 
 ### Writing Tests
 
-- Place tests in the `tests/` directory
-- Mirror the `src/` structure
-- Use descriptive test names
-- Test edge cases and error conditions
-- Keep tests independent and isolated
+**Test Organization:**
 
-### Test Structure
+- Place tests in the `tests/` directory
+- Mirror the `src/` directory structure
+- Use descriptive test file names (`*.test.ts` or `*.spec.ts`)
+
+**Test Structure:**
 
 ```typescript
 import { test, expect } from '@playwright/test';
 import { configure, createOnchainTest } from '@coinbase/onchaintestkit';
 
-test.describe('Feature Name', () => {
-  test('should do something specific', async () => {
-    // Arrange
+test.describe('Wallet Connection', () => {
+  test('should connect MetaMask wallet successfully', async () => {
+    // Arrange - Set up test conditions
     const config = configure()
       .withMetaMask()
+      .withSeedPhrase({
+        seedPhrase: process.env.E2E_TEST_SEED_PHRASE!,
+        password: 'TestPassword123'
+      })
       .build();
     
-    // Act
-    const result = await someFunction();
+    // Act - Perform the action
+    const { page, wallet } = await createOnchainTest(config);
+    await page.goto('https://test-dapp.com');
+    await wallet.connect();
     
-    // Assert
-    expect(result).toBe(expected);
+    // Assert - Verify the outcome
+    expect(await wallet.isConnected()).toBe(true);
+  });
+  
+  test('should handle connection rejection gracefully', async () => {
+    // Test error scenarios
   });
 });
 ```
 
+**Testing Best Practices:**
+
+- ✅ Test one thing per test
+- ✅ Use descriptive test names
+- ✅ Test both success and failure paths
+- ✅ Keep tests independent and isolated
+- ✅ Clean up resources after tests
+- ✅ Use meaningful assertions
+
+---
+
 ## 📚 Documentation
 
-### Updating Documentation
+### When to Update Documentation
 
-When making changes, update relevant documentation:
+Update documentation when you:
 
-- **README.md** - Main project overview
-- **docs/** - Detailed guides and API reference
-- **Code comments** - Inline documentation
-- **Examples** - Usage examples in `example/`
+- Add new features or APIs
+- Change existing behavior
+- Fix bugs that affect usage
+- Add new configuration options
+
+### Documentation Files
+
+| File | Purpose |
+|------|---------|
+| `README.md` | Project overview and quick start |
+| `CONTRIBUTING.md` | Contribution guidelines (this file) |
+| `docs/` | Detailed guides and API reference |
+| `example/` | Working code examples |
+| JSDoc comments | Inline API documentation |
 
 ### Documentation Style
 
-- Be clear and concise
-- Include code examples
-- Explain the "why" not just the "what"
-- Keep examples up to date
-- Use proper markdown formatting
+**Writing Guidelines:**
+
+- ✅ Be clear and concise
+- ✅ Include code examples
+- ✅ Explain the "why" behind decisions
+- ✅ Keep examples up to date
+- ✅ Use proper markdown formatting
+- ✅ Add links to related documentation
+
+**Example:**
+
+```markdown
+## Configuring Fork Mode
+
+Fork mode allows you to test against a snapshot of mainnet at a specific block:
+
+\```typescript
+const config = configure()
+  .withLocalNode({
+    fork: 'https://eth-mainnet.g.alchemy.com/v2/YOUR-KEY',
+    forkBlockNumber: 18500000 // Pin to specific block
+  })
+  .build();
+\```
+
+This ensures reproducible tests by using a consistent blockchain state.
+```
+
+---
 
 ## 🐛 Reporting Bugs
 
-### Before Submitting
+### Before Submitting a Bug Report
 
-1. Check existing issues to avoid duplicates
-2. Test with the latest version
-3. Verify it's not a configuration issue
+1. ✅ **Search existing issues** - Check if it's already reported
+2. ✅ **Test with latest version** - Verify bug exists in current release
+3. ✅ **Verify configuration** - Ensure your setup is correct
+4. ✅ **Create minimal reproduction** - Isolate the issue
 
 ### Bug Report Template
 
-Include:
+Include the following information:
 
-- **Description**: Clear description of the bug
-- **Steps to Reproduce**: Detailed steps to reproduce
-- **Expected Behavior**: What should happen
-- **Actual Behavior**: What actually happens
-- **Environment**: OS, Node version, package version
-- **Code Sample**: Minimal reproducible example
+**Description**
+Clear and concise description of the bug.
+
+**Steps to Reproduce**
+1. Configure wallet with...
+2. Run test with...
+3. Observe error...
+
+**Expected Behavior**
+What should happen?
+
+**Actual Behavior**
+What actually happens?
+
+**Environment**
+- OS: [e.g., macOS 13.0, Ubuntu 22.04]
+- Node version: [e.g., v18.16.0]
+- Package version: [e.g., 1.2.0]
+- Wallet: [e.g., MetaMask 11.0.0]
+
+**Code Sample**
+```typescript
+// Minimal reproducible example
+```
+
+**Additional Context**
+Screenshots, error messages, or other relevant information.
+
+---
 
 ## 💡 Suggesting Features
 
-We welcome feature suggestions! Please:
+We welcome feature suggestions! To propose a new feature:
 
-1. Check if the feature already exists or is planned
-2. Open an issue with the `enhancement` label
-3. Describe the use case and benefits
-4. Provide examples of how it would work
+1. ✅ **Check existing issues** - See if it's already suggested
+2. ✅ **Open an issue** - Use the `enhancement` label
+3. ✅ **Describe the use case** - Explain the problem it solves
+4. ✅ **Provide examples** - Show how it would work
+5. ✅ **Consider alternatives** - Discuss other approaches
+
+---
 
 ## 🔍 Code Review Process
 
-### What We Look For
+### Review Criteria
 
-- **Correctness**: Does it work as intended?
-- **Tests**: Are there adequate tests?
-- **Documentation**: Is it well documented?
-- **Style**: Does it follow our guidelines?
-- **Performance**: Are there performance implications?
-- **Security**: Are there security concerns?
+Reviewers evaluate submissions based on:
+
+| Aspect | What We Check |
+|--------|---------------|
+| **Correctness** | Does it work as intended? No bugs? |
+| **Tests** | Are there adequate tests? Do they pass? |
+| **Documentation** | Is it well documented? |
+| **Style** | Does it follow our guidelines? |
+| **Performance** | Are there performance implications? |
+| **Security** | Are there security concerns? |
+| **Breaking Changes** | Is backward compatibility maintained? |
 
 ### Review Timeline
 
-- Initial review: Within 1-3 business days
-- Feedback incorporated: Review continues
-- Approved: Ready to merge
+- **Initial Review**: Within 1-3 business days
+- **Feedback**: Maintainers provide constructive feedback
+- **Iteration**: Make requested changes
+- **Approval**: Once approved, PR will be merged
+
+---
 
 ## 🚫 What NOT to Contribute
 
 Please avoid:
 
-- ❌ Breaking changes without discussion
-- ❌ Large refactors without prior approval
-- ❌ Code that fails tests or linting
-- ❌ Unrelated changes in a single PR
-- ❌ Commits with real secrets or credentials
-
-## 📞 Getting Help
-
-Need help with your contribution?
-
-- 💬 Open a [discussion](https://github.com/MunyayLLC/https-github.com-joe10832-onchaintestkit/discussions)
-- 📧 Ask questions in your PR
-- 📖 Check the [documentation](./docs/)
-- 🐛 Open an [issue](https://github.com/MunyayLLC/https-github.com-joe10832-onchaintestkit/issues)
-
-## 🎉 Recognition
-
-Contributors will be:
-
-- Listed in the project's contributors
-- Credited in release notes (for significant contributions)
-- Part of a growing community of blockchain testing enthusiasts
-
-## 📄 License
-
-By contributing, you agree that your contributions will be licensed under the MIT License.
+- ❌ **Breaking changes** without prior discussion
+- ❌ **Large refactors** without approval
+- ❌ **Failing tests** or linting errors
+- ❌ **Unrelated changes** in a single PR
+- ❌ **Real credentials** or secrets in code
+- ❌ **Dependencies** without justification
 
 ---
 
-Thank you for contributing to OnChainTestKit! Every contribution, no matter how small, helps make blockchain testing better for everyone. 🚀
+## 📞 Getting Help
+
+Need assistance with your contribution?
+
+- 💬 **[Discussions](https://github.com/MunyayLLC/https-github.com-joe10832-onchaintestkit/discussions)** - Ask questions and share ideas
+- 📧 **PR Comments** - Ask questions directly in your pull request
+- 📖 **[Documentation](./docs/)** - Check the comprehensive guides
+- 🐛 **[Issues](https://github.com/MunyayLLC/https-github.com-joe10832-onchaintestkit/issues)** - Report problems or request features
+
+---
+
+## 🎉 Recognition
+
+Contributors are valued members of our community:
+
+- ✨ Listed in project contributors
+- 📝 Credited in release notes (for significant contributions)
+- 🌟 Part of our blockchain testing community
+
+---
+
+## 📄 License
+
+By contributing to OnChainTestKit, you agree that your contributions will be licensed under the MIT License.
+
+---
+
+<div align="center">
+
+**Thank you for contributing to OnChainTestKit!**
+
+Every contribution, no matter the size, helps make blockchain testing better for everyone. 🚀
+
+</div>
