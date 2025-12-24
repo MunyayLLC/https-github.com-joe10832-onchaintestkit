@@ -26,6 +26,10 @@ export default defineConfig({
           { text: "Installation", link: "/installation" },
         ],
       },
+      {
+        text: "Analytics",
+        items: [{ text: "Vercel Web Analytics", link: "/analytics" }],
+      },
     ],
 
     socialLinks: [
