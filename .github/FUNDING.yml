@@ -1,0 +1,162 @@
+# These are supported funding model platforms
+
+github: # Replace with up to 4 GitHub Sponsors-enabled usernames e.g., [user1, user2]
+patreon: # Replace with a single Patreon username
+open_collective: # Replace with a single Open Collective username
+ko_fi: # Replace with a single Ko-fi username
+tidelift: # Replace with a single Tidelift platform-name/package-name e.g., npm/babel
+community_bridge: # Replace with a single Community Bridge project-name e.g., cloud-foundry
+liberapay: # Replace with a single Liberapay username
+issuehunt: # Replace with a single IssueHunt username
+lfx_crowdfunding: # Replace with a single LFX Crowdfunding project-name e.g., cloud-foundry
+polar: # Replace with a single Polar username
+buy_me_a_coffee: # Replace with a single Buy Me a Coffee username
+thanks_dev: # Replace with a single thanks.dev username
+custom: # Replace with up to 4 custom sponsorship URLs e.g., ['link1', 'link2']
+README.md# OnChainTestKit - Enterprise Web3 Testing Framework
+
+[![CI/CD Pipeline](https://github.com/MunyayLLC/onchaintestkit/actions/workflows/ci-complete.yml/badge.svg)](https://github.com/MunyayLLC/onchaintestkit/actions/workflows/ci-complete.yml)
+[![Copilot Setup](https://github.com/MunyayLLC/onchaintestkit/actions/workflows/copilot-setup.yml/badge.svg)](https://github.com/MunyayLLC/onchaintestkit/actions/workflows/copilot-setup.yml)
+[![codecov](https://codecov.io/gh/MunyayLLC/onchaintestkit/branch/main/graph/badge.svg)](https://codecov.io/gh/MunyayLLC/onchaintestkit)
+[![License](https://img.shields.io/github/license/MunyayLLC/onchaintestkit)](LICENSE)
+[![SLSA 3](https://slsa.dev/images/gh-badge-level3.svg)](https://slsa.dev)
+
+Enterprise-grade end-to-end testing toolkit for Web3 applications with built-in Methttps://stackblitz.com/~/github.com/MunyayLLC/https-github.com-joe10832-onchaintestkitnpm install @reown/appkit @reown/appkit-adapter-wagmi wagmi viem @tanstack/react-query# Enterprise-Ready Software Engineering Project
+
+Welcome to the **Enterprise-Ready Software Engineering Project**. This repository is designed for professional development in Python, Java, and C++ with a focus on enterprise-grade solutions, scalability, and maintainability.
+
+---
+
+## 🚀 Business Focus
+
+This project is tailored for **business enterprise-ready** solutions, ensuring professional-grade software engineering practices. It emphasizes:
+
+- **Scalability**: Designed to handle enterprise-level workloads.
+- **Maintainability**: Code structured for long-term use and collaboration.
+- **Integration**: Seamless integration with existing enterprise systems.
+
+---
+
+## 🧑‍💻 Your Role
+
+- **Role Type**: `{role_type}` expert in `{domain}`
+- **Focus Area**: `{key_skill_area}`
+
+As a contributor, your expertise in `{domain}` will help shape the success of this project. Focus on `{key_skill_area}` to ensure high-quality contributions.
+
+---
+
+## 📜 Code Guidelines
+
+### General Guidelines
+- Use **language-specific conventions** for Python, Java, and C++.
+- Follow **design patterns** and **best practices** for enterprise software.
+- Optimize for **performance**, **readability**, and **scalability**.
+
+### Python
+- Follow [PEP 8](https://peps.python.org/pep-0008/) for coding standards.
+- Use type hints and docstrings for better readability.
+- Write unit tests using `unittest` or `pytest`.
+
+### Java
+- Adhere to [Oracle's Java Code Conventions](https://www.oracle.com/java/technologies/javase/codeconventions-introduction.html).
+- Use Maven or Gradle for dependency management.
+- Write JUnit tests for all major components.
+
+### C++
+- Follow [Google's C++ Style Guide](https://google.github.io/styleguide/cppguide.html).
+- Use `CMake` for build configuration.
+- Ensure memory safety and avoid undefined behavior.
+
+---
+
+## 🔧 Integration
+
+This project is designed to integrate seamlessly with enterprise systems. Key integration points include:
+
+- **APIs**: RESTful APIs for communication between services.
+- **Databases**: Support for relational and NoSQL databases.
+- **CI/CD Pipelines**: Automated testing and deployment workflows.
+
+---
+
+## 📚 Further Reading
+
+- [Python Best Practices](https://realpython.com/)
+- [Java Design Patterns](https://java-design-patterns.com/)
+- [C++ Modern Practices](https://isocpp.org/)
+
+---
+
+For questions or support, please open an issue or contact the project maintainer.# GitHub Copilot Configuration & Setup
+
+Welcome to AI-powered pair programming with GitHub Copilot! This guide will help you quickly onboard and configure Copilot for use with Python, Java, and C++ projects in this repository.
+
+---
+
+## 1. Enable Copilot for Your GitHub Account
+
+1. Ensure you have a [GitHub Copilot license](https://github.com/features/copilot).
+2. Go to **Settings > Copilot** in your GitHub account and enable Copilot for your user or organization.
+
+---
+
+## 2. Install the Copilot Extension
+
+Copilot is available for popular editors:
+
+- **Visual Studio Code**: [Copilot for VS Code](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot)
+- **JetBrains IDEs** (IntelliJ, PyCharm, CLion, etc.): [Copilot for JetBrains](https://plugins.jetbrains.com/plugin/17718-github-copilot)
+- **Neovim**: [Copilot for Neovim](https://github.com/github/copilot.vim)
+
+Install the extension and sign in with your GitHub account.
+
+---
+
+## 3. Project-Specific Setup
+
+### Python
+
+- Use a virtual environment (`python -m venv venv`).
+- Ensure `requirements.txt` or `pyproject.toml` is present for dependency management.
+- Copilot works best with clear docstrings and type hints.
+
+### Java
+
+- Ensure your project has a proper `pom.xml` (Maven) or `build.gradle` (Gradle) configuration.
+- Use standard directory layouts (`src/main/java`, `src/test/java`).
+- Document classes and methods for better Copilot context.
+
+### C++
+
+- Use a `CMakeLists.txt` or relevant build configuration file.
+- Organize code in `include/` and `src/` directories.
+- Comment header files and provide signature documentation.
+
+---
+
+## 4. Best Practices for Copilot
+
+- Write descriptive comments and docstrings—Copilot uses them for smarter suggestions.
+- Break up large files and functions for better context.
+- Use meaningful variable and function names.
+- Regularly review and refactor Copilot's code for security and correctness.
+
+---
+
+## 5. Troubleshooting
+
+- If Copilot suggestions are not relevant, add more context or comments.
+- For editor-specific troubleshooting, refer to the [Copilot Docs](https://docs.github.com/en/copilot/getting-started-with-github-copilot).
+
+---
+
+## 6. Further Reading
+
+- [GitHub Copilot Documentation](https://docs.github.com/en/copilot)
+- [Onboarding Guide](../README.md#onboarding)
+- [Contribution Guide](../CONTRIBUTING.md)
+
+---
+
+For questions or support, open an issue or contact your team lead.
